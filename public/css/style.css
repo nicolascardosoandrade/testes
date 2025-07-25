@@ -9,20 +9,22 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 15px;
 }
 
 /* Cabeçalho */
 header {
   background: #003087; /* Azul institucional SENAI */
   color: white;
-  padding: 10px 0;
+  padding: 15px 0;
   top: 0;
   z-index: 100;
 }
@@ -31,61 +33,70 @@ header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 header .logo {
-  height: 50px;
+  height: 40px;
 }
 
 header nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 header nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
+  font-size: 0.95em;
+  padding: 8px;
+  display: block;
 }
 
 header nav ul li a:hover {
   text-decoration: underline;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
 }
 
 /* Seção Principal */
 .hero {
   background: #f4f4f4;
   text-align: center;
-  padding: 50px 0;
+  padding: 40px 0;
 }
 
 .hero h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
+  font-size: 2em;
+  margin-bottom: 12px;
   color: #003087;
 }
 
 .hero p {
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin-bottom: 20px;
 }
 
 .cta-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 1em;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  transition: all 0.3s ease;
+  touch-action: manipulation;
 }
 
 .btn-primary {
@@ -94,7 +105,7 @@ header nav ul li a:hover {
 }
 
 .btn-secondary {
-  background: #00a859; /* Verde para destacar "Encontrado" */
+  background: #00a859;
   color: white;
 }
 
@@ -110,43 +121,106 @@ header nav ul li a:hover {
 
 .btn:hover {
   opacity: 0.9;
+  transform: translateY(-2px);
 }
 
 /* Barra de Busca */
 .search {
-  padding: 20px 0;
+  padding: 25px 0;
   text-align: center;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search form {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 700px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.search .filter-container {
+  display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search .filter-container select {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 1em;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search .filter-container select:focus {
+  border-color: #003087;
+  box-shadow: 0 0 8px rgba(0, 48, 135, 0.2);
 }
 
 .search input {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px 15px;
+  width: 100%;
+  max-width: 500px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
   font-size: 1em;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: #003087;
+  box-shadow: 0 0 8px rgba(0, 48, 135, 0.2);
+}
+
+.search .btn-search {
+  padding: 12px 30px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #003087;
+  font-weight: bold;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.search .btn-search:hover {
+  background: #002366;
+  transform: translateY(-2px);
 }
 
 .search .search-feedback {
-  width: 300px;
+  width: 100%;
+  max-width: 700px;
   text-align: center;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #333;
+  transition: opacity 0.3s ease;
 }
 
 /* Como Funciona */
 .how-it-works {
-  padding: 50px 0;
+  padding: 40px 0;
   background: white;
   text-align: center;
 }
 
 .how-it-works h2 {
-  font-size: 2em;
+  font-size: 1.8em;
   margin-bottom: 20px;
   color: #003087;
 }
@@ -154,12 +228,12 @@ header nav ul li a:hover {
 .steps {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
 .step {
-  width: 200px;
+  width: 180px;
   text-align: center;
 }
 
@@ -170,7 +244,7 @@ header nav ul li a:hover {
 }
 
 .step h3 {
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin-bottom: 10px;
 }
 
@@ -183,6 +257,7 @@ header nav ul li a:hover {
 
 .privacy p {
   margin-bottom: 10px;
+  font-size: 0.95em;
 }
 
 .privacy a {
@@ -199,7 +274,7 @@ footer {
   background: #003087;
   color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
 footer a {
@@ -213,26 +288,199 @@ footer a:hover {
 
 /* Responsividade */
 @media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Base font size for better readability */
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
   header .container {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  header .logo {
+    height: 35px;
   }
 
   header nav ul {
     flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
+
+  header nav ul li a {
+    font-size: 1em;
+    padding: 10px;
+    width: 100%;
     text-align: center;
   }
 
+  .hero {
+    padding: 30px 0;
+  }
+
   .hero h1 {
-    font-size: 1.8em;
+    font-size: 1.5em;
+  }
+
+  .hero p {
+    font-size: 1em;
+    padding: 0 10px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px;
+    font-size: 1em;
+  }
+
+  .search {
+    padding: 20px 0;
+  }
+
+  .search form {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 10px;
+  }
+
+  .search .filter-container {
+    width: 100%;
+    align-items: center;
+  }
+
+  .search .filter-container select {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 15px;
+    font-size: 1em;
   }
 
   .search input {
     width: 100%;
+    max-width: 100%;
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .search .btn-search {
+    width: 100%;
+    max-width: 180px;
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .search .search-feedback {
+    font-size: 0.85em;
+    padding: 0 10px;
+  }
+
+  .how-it-works {
+    padding: 30px 0;
+  }
+
+  .how-it-works h2 {
+    font-size: 1.5em;
   }
 
   .steps {
     flex-direction: column;
+    gap: 20px;
     align-items: center;
+  }
+
+  .step {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .step img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .step h3 {
+    font-size: 1em;
+  }
+
+  .privacy {
+    padding: 15px 0;
+  }
+
+  .privacy p {
+    font-size: 0.9em;
+    padding: 0 10px;
+  }
+
+  footer {
+    padding: 12px 0;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  header .logo {
+    height: 30px;
+  }
+
+  .hero h1 {
+    font-size: 1.3em;
+  }
+
+  .hero p {
+    font-size: 0.9em;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  .search .filter-container select {
+    padding: 8px 12px;
+    font-size: 0.95em;
+  }
+
+  .search input {
+    padding: 8px 12px;
+    font-size: 0.95em;
+  }
+
+  .search .btn-search {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+
+  .how-it-works h2 {
+    font-size: 1.3em;
+  }
+
+  .step {
+    max-width: 200px;
+  }
+
+  .step img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .step h3 {
+    font-size: 0.95em;
+  }
+
+  footer {
+    font-size: 0.85em;
   }
 }
