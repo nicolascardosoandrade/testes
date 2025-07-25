@@ -36,7 +36,7 @@ db.getConnection()
 
 // Configuração de e-mail
 const transporter = nodemailer.createTransport({
-  service: process.env.EMAIL_SERVICE,
+  service: process.env.EMAIL_SERVICE || 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -48,13 +48,19 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Rota para redirecionar o link de redefinição
+app.get('/reset-password', (req, res) => {
+  const token = req.query.token;
+  if (!token) {
+    return res.status(400).send('Token inválido.');
+  }
+  res.sendFile(path.join(__dirname, 'public', 'redefinir_senha.html'));
+});
+
 // Rota para registrar usuário
 app.post('/api/registrar-usuario', async (req, res) => {
   const { nome, sobrenome, email, registro, senha, confirmar_senha, termos } = req.body;
 
-  console.log('Dados recebidos:', { nome, sobrenome, email, registro, senha, confirmar_senha, termos }); // Log para debug
-
-  // Validações
   if (!nome || !sobrenome || !email || !registro || !senha || !confirmar_senha || typeof termos === 'undefined') {
     return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios.' });
   }
@@ -81,17 +87,14 @@ app.post('/api/registrar-usuario', async (req, res) => {
   }
 
   try {
-    // Verificar duplicatas
     const [existingUsers] = await db.query('SELECT * FROM usuarios WHERE registro = ? OR email = ?', [registro, email]);
     if (existingUsers.length > 0) {
       return res.status(400).json({ success: false, message: 'Registro ou e-mail já cadastrado.' });
     }
 
-    // Criptografar senha
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(senha, saltRounds);
 
-    // Inserir no banco
     await db.query(
       'INSERT INTO usuarios (nome, sobrenome, email, registro, senha, termos_aceitos) VALUES (?, ?, ?, ?, ?, ?)',
       [nome, sobrenome, email, registro, hashedPassword, true]
@@ -108,7 +111,6 @@ app.post('/api/registrar-usuario', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { registro, senha } = req.body;
 
-  // Validações
   if (!registro || !/^\d{6,10}$/.test(registro)) {
     return res.status(400).json({ success: false, message: 'Registro acadêmico inválido (mínimo 6 dígitos).' });
   }
@@ -117,20 +119,17 @@ app.post('/api/login', async (req, res) => {
   }
 
   try {
-    // Buscar usuário no banco
     const [users] = await db.query('SELECT * FROM usuarios WHERE registro = ?', [registro]);
     if (users.length === 0) {
       return res.status(404).json({ success: false, message: 'Registro não encontrado.' });
     }
 
     const user = users[0];
-    // Comparar senha com hash
     const match = await bcrypt.compare(senha, user.senha);
     if (!match) {
       return res.status(401).json({ success: false, message: 'Senha incorreta.' });
     }
 
-    // Login bem-sucedido
     console.log(`Login bem-sucedido para registro ${registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`);
     res.status(200).json({ success: true, message: 'Login bem-sucedido! Redirecionando...', redirect: '/index.html' });
   } catch (error) {
@@ -160,55 +159,77 @@ app.post('/api/registrar-encontrado', (req, res) => {
 });
 
 // Rota para iniciar redefinição de senha
-app.post('/api/forgot-password', (req, res) => {
+app.post('/api/forgot-password', async (req, res) => {
   const { registro } = req.body;
-  const user = users.find(u => u.registro === registro); // Substituir por consulta ao MySQL
-  if (!user) {
-    return res.status(404).json({ success: false, message: 'Registro não encontrado.' });
+
+  if (!registro || !/^\d{6,10}$/.test(registro)) {
+    return res.status(400).json({ success: false, message: 'Registro acadêmico inválido (6 a 10 dígitos).' });
   }
 
-  const token = crypto.randomBytes(20).toString('hex');
-  const expires = Date.now() + 3600000; // 1 hora de validade
-  resetTokens.set(token, { userId: user.id, expires });
-
-  const resetLink = `${process.env.APP_URL}/reset-password?token=${token}`;
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: user.email,
-    subject: 'Redefinição de Senha - Achados e Perdidos SENAI',
-    text: `Clique no link para redefinir sua senha: ${resetLink}\nO link expira em 1 hora. Enviado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`
-  };
-
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.error('Erro ao enviar e-mail:', error);
-      return res.status(500).json({ success: false, message: 'Erro ao enviar e-mail.' });
+  try {
+    const [users] = await db.query('SELECT * FROM usuarios WHERE registro = ?', [registro]);
+    if (users.length === 0) {
+      return res.status(404).json({ success: false, message: 'Registro não encontrado.' });
     }
+
+    const user = users[0];
+    const token = crypto.randomBytes(20).toString('hex');
+    const expires = new Date(Date.now() + 3600000); // 1 hora de validade
+
+    await db.query(
+      'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)',
+      [user.id, token, expires]
+    );
+
+    const resetLink = `${process.env.APP_URL}/reset-password?token=${token}`;
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: 'Redefinição de Senha - Achados e Perdidos SENAI',
+      text: `Clique no link para redefinir sua senha: ${resetLink}\nO link expira em 1 hora. Enviado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`
+    };
+
+    await transporter.sendMail(mailOptions);
     console.log(`E-mail de redefinição enviado para ${user.email} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`);
-    res.status(200).json({ success: true, message: 'E-mail de redefinição enviado!' });
-  });
+    res.status(200).json({ success: true, message: 'E-mail de redefinição enviado! Redirecionando em 3 segundos...' });
+  } catch (error) {
+    console.error(`Erro ao processar redefinição em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao enviar e-mail. Tente novamente.' });
+  }
 });
 
 // Rota para redefinir senha
-app.post('/api/reset-password', (req, res) => {
+app.post('/api/reset-password', async (req, res) => {
   const { token, nova_senha } = req.body;
-  const tokenData = resetTokens.get(token);
 
-  if (!tokenData || tokenData.expires < Date.now()) {
-    return res.status(400).json({ success: false, message: 'Token inválido ou expirado.' });
+  if (!token || !nova_senha || nova_senha.length < 6) {
+    return res.status(400).json({ success: false, message: 'Token ou senha inválida.' });
   }
 
-  const user = users.find(u => u.id === tokenData.userId); // Substituir por consulta ao MySQL
-  if (!user) {
-    return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+  try {
+    const [tokens] = await db.query('SELECT * FROM password_resets WHERE token = ? AND expires_at > ?', [token, new Date()]);
+    if (tokens.length === 0) {
+      return res.status(400).json({ success: false, message: 'Token inválido ou expirado.' });
+    }
+
+    const tokenData = tokens[0];
+    const [users] = await db.query('SELECT * FROM usuarios WHERE id = ?', [tokenData.user_id]);
+    if (users.length === 0) {
+      return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+    }
+
+    const user = users[0];
+    const hashedPassword = await bcrypt.hash(nova_senha, 10);
+
+    await db.query('UPDATE usuarios SET senha = ? WHERE id = ?', [hashedPassword, user.id]);
+    await db.query('DELETE FROM password_resets WHERE token = ?', [token]);
+
+    console.log(`Senha redefinida para usuário ${user.registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`);
+    res.status(200).json({ success: true, message: 'Senha redefinida com sucesso! Redirecionando...' });
+  } catch (error) {
+    console.error(`Erro ao redefinir senha em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao redefinir senha. Tente novamente.' });
   }
-
-  // Atualizar senha (simulação; use bcrypt em produção)
-  user.senha = nova_senha; // Substitua por hash (ex.: bcrypt.hashSync(nova_senha, 10))
-  resetTokens.delete(token);
-  console.log(`Senha redefinida para usuário ${user.registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`);
-
-  res.status(200).json({ success: true, message: 'Senha redefinida com sucesso!' });
 });
 
 // Iniciar servidor

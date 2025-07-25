@@ -15,11 +15,17 @@
         <input type="hidden" id="token" name="token">
         <div class="form-group">
           <label for="nova-senha">Nova Senha</label>
-          <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" required>
+          <div class="password-wrapper">
+            <input type="password" id="nova-senha" name="nova_senha" placeholder="Digite sua nova senha" required>
+            <button type="button" class="toggle-password" data-target="nova-senha"></button>
+          </div>
         </div>
         <div class="form-group">
           <label for="confirmar-senha">Confirmar Senha</label>
-          <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="Confirme sua nova senha" required>
+          <div class="password-wrapper">
+            <input type="password" id="confirmar-senha" name="confirmar_senha" placeholder="Confirme sua nova senha" required>
+            <button type="button" class="toggle-password" data-target="confirmar-senha"></button>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Redefinir Senha</button>
         <div id="feedback" class="feedback"></div>

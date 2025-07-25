@@ -39,6 +39,17 @@ document.addEventListener('DOMContentLoaded', function() {
     return password.length >= 6 && hasLetter && hasNumber;
   }
 
+  // Lógica para alternar visibilidade da senha
+  document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const input = document.getElementById(targetId);
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      this.classList.toggle('visible');
+    });
+  });
+
   // Validação e envio do formulário
   resetForm.addEventListener('submit', function(event) {
     event.preventDefault();

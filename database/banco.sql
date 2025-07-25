@@ -19,4 +19,15 @@
       INDEX idx_registro (registro),
       INDEX idx_email (email)
     );
+    
+    -- Criar a tabela de redefinições de senha
+	CREATE TABLE IF NOT EXISTS password_resets (
+		id INT AUTO_INCREMENT PRIMARY KEY,
+		user_id INT NOT NULL,
+		token VARCHAR(40) NOT NULL,
+		expires_at DATETIME NOT NULL,
+		created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+		UNIQUE KEY unique_token (token)
+);
 

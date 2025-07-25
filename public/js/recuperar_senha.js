@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
     const registro = recoverRegistroInput.value.trim();
 
-    if (!registro || !/^\d{6,}$/.test(registro)) {
-      showFeedback('Por favor, digite um registro acadêmico válido (mínimo 6 dígitos).', true);
+    if (!registro || !/^\d{6,10}$/.test(registro)) {
+      showFeedback('Por favor, digite um registro acadêmico válido (6 a 10 dígitos).', true);
       recoverRegistroInput.focus();
       return;
     }
