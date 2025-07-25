@@ -26,7 +26,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra fixa, sem transição */
 }
 
 header .container {
@@ -49,7 +49,7 @@ header nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; /* Mantida apenas a transição de cor */
 }
 
 header nav ul li a:hover {
@@ -75,69 +75,69 @@ header nav ul li a:hover {
   color: #7f8c8d;
 }
 
-.privacy-content {
+.lgpd-content {
   padding: 50px 0;
   background: white;
 }
 
-.privacy-content .container {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.lgpd-content .container {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra fixa, sem transição */
   border-radius: 8px;
   padding: 25px;
 }
 
-.politica-secao {
+.lgpd-secao {
   margin-bottom: 25px;
   border-bottom: 1px solid #eee;
   padding-bottom: 15px;
 }
 
-.politica-secao h2 {
+.lgpd-secao h2 {
   color: #003087;
   font-size: 1.3em;
   font-weight: 600;
   cursor: pointer;
   padding: 12px 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; /* Apenas transição de cor */
 }
 
-.politica-secao h2:hover {
+.lgpd-secao h2:hover {
   color: #0056b3;
 }
 
-.politica-secao h2::after {
+.lgpd-secao h2::after {
   content: '▼';
   position: absolute;
   right: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease; /* Mantida para o colapso */
 }
 
-.politica-secao.active h2::after {
+.lgpd-secao.active h2::after {
   transform: rotate(180deg);
 }
 
-.politica-secao ul {
+.lgpd-secao ul {
   list-style-type: disc;
   margin: 15px 0 15px 25px;
   color: #555;
 }
 
-.politica-secao ul li {
+.lgpd-secao ul li {
   margin-bottom: 10px;
 }
 
-.politica-secao ul li strong {
+.lgpd-secao ul li strong {
   color: #003087;
 }
 
-.politica-secao .collapsible-content {
+.lgpd-secao .collapsible-content {
   display: none;
   padding: 15px 0 0;
   animation: fadeIn 0.3s ease-in;
 }
 
-.politica-secao.active .collapsible-content {
+.lgpd-secao.active .collapsible-content {
   display: block;
 }
 
@@ -151,7 +151,7 @@ footer {
   color: white;
   text-align: center;
   padding: 15px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra fixa */
 }
 
 footer a {
@@ -182,13 +182,13 @@ footer a:hover {
   .hero h1 {
     font-size: 1.8em;
   }
-  .privacy-content {
+  .lgpd-content {
     padding: 30px 0;
   }
-  .privacy-content .container {
+  .lgpd-content .container {
     padding: 15px;
   }
-  .politica-secao h2 {
+  .lgpd-secao h2 {
     font-size: 1.1em;
   }
   footer {
@@ -200,7 +200,7 @@ footer a:hover {
   .container {
     padding: 10px;
   }
-  .politica-secao ul {
+  .lgpd-secao ul {
     margin-left: 15px;
   }
 }

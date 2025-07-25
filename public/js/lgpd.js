@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function saveState(secao) {
     const secaoId = secao.getAttribute('data-secao');
     if (secaoId) {
-      localStorage.setItem(`politica-secao-${secaoId}`, secao.classList.contains('active'));
+      localStorage.setItem(`lgpd-secao-${secaoId}`, secao.classList.contains('active'));
     }
   }
 
@@ -38,14 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
     secoes.forEach(secao => {
       const secaoId = secao.getAttribute('data-secao');
       if (secaoId) {
-        const isActive = localStorage.getItem(`politica-secao-${secaoId}`) === 'true';
+        const isActive = localStorage.getItem(`lgpd-secao-${secaoId}`) === 'true';
         if (isActive) secao.classList.add('active');
       }
     });
   }
 
   // Tornar seções colapsáveis
-  const secoes = document.querySelectorAll('.politica-secao');
+  const secoes = document.querySelectorAll('.lgpd-secao');
   if (secoes.length > 0) {
     loadState(secoes); // Carrega o estado ao iniciar
     secoes.forEach(secao => {
@@ -72,6 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   } else {
-    console.warn('Nenhuma seção .politica-secao encontrada.');
+    console.warn('Nenhuma seção .lgpd-secao encontrada.');
   }
 });
