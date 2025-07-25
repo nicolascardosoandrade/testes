@@ -1,0 +1,213 @@
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+  background: linear-gradient(90deg, #003087, #0047ab);
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+header:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+nav {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover,
+nav a:focus {
+  color: #ecf0f1;
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+main {
+  margin-top: 90px;
+  padding: 20px 15px;
+  min-height: calc(100vh - 90px - 60px); /* Ajuste dinâmico para rodapé */
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.subtitulo {
+  font-size: 0.95em;
+  color: #7f8c8d;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
+.politica-secao {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.politica-secao h3 {
+  color: #003087;
+  font-size: 1.3em;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px 0;
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.politica-secao h3:hover,
+.politica-secao h3:focus {
+  color: #0056b3;
+  transform: translateX(5px);
+}
+
+.politica-secao h3::after {
+  content: '▼';
+  position: absolute;
+  right: 0;
+  transition: transform 0.3s ease;
+}
+
+.politica-secao.active h3::after {
+  transform: rotate(180deg);
+}
+
+.politica-secao ul {
+  list-style-type: disc;
+  margin: 15px 0 15px 25px;
+  color: #555;
+}
+
+.politica-secao ul li {
+  margin-bottom: 10px;
+}
+
+.politica-secao ul li strong {
+  color: #003087;
+}
+
+.politica-secao .collapsible-content {
+  display: none;
+  padding: 15px 0 0;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.politica-secao.active .collapsible-content {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+footer {
+  text-align: center;
+  padding: 15px 0;
+  background: linear-gradient(90deg, #003087, #0047ab);
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 0;
+}
+
+footer a {
+  color: #ecf0f1;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  main {
+    margin-top: 70px;
+    padding: 10px;
+  }
+  .container {
+    padding: 15px;
+    border-radius: 4px;
+  }
+  header h1 {
+    font-size: 1.5em;
+  }
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  nav a {
+    margin: 0;
+    padding: 5px;
+  }
+  .politica-secao h3 {
+    font-size: 1.1em;
+  }
+  .subtitulo {
+    font-size: 0.9em;
+  }
+  footer {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 10px;
+  }
+  .politica-secao ul {
+    margin-left: 15px;
+  }
+}

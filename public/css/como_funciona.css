@@ -1,0 +1,211 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f4f4f4;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Cabeçalho */
+header {
+  background: #003087; /* Azul institucional SENAI */
+  color: white;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  height: 50px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Seção Como Funciona */
+.como-funciona {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.como-funciona h1 {
+  font-size: 2em;
+  color: #003087;
+  margin-bottom: 10px;
+}
+
+.como-funciona p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+/* Passos */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.step {
+  width: 250px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+}
+
+.step img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.step h2 {
+  font-size: 1.4em;
+  color: #003087;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 1em;
+}
+
+/* Benefícios */
+.beneficios {
+  margin-bottom: 40px;
+}
+
+.beneficios h2 {
+  font-size: 1.5em;
+  color: #003087;
+  margin-bottom: 15px;
+}
+
+.beneficios ul {
+  list-style: none;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.beneficios ul li {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.beneficios ul li strong {
+  color: #003087;
+}
+
+/* Links Legais */
+.links-legais {
+  margin-bottom: 40px;
+}
+
+.links-legais h2 {
+  font-size: 1.5em;
+  color: #003087;
+  margin-bottom: 15px;
+}
+
+.links-legais ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.links-legais ul li a {
+  color: #003087;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.links-legais ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Rodapé */
+footer {
+  background: #003087;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step {
+    width: 90%;
+  }
+
+  .links-legais ul {
+    flex-direction: column;
+  }
+}

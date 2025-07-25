@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achados e Perdidos SENAI</title>
+  <link rel="stylesheet" href="css/style.css">
+   <link rel="icon" href="img/startech-icon.png" type="image/x-icon">
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="container">
+      <img src="img/senai-logo-1.png" alt="Logotipo SENAI" class="logo">
+      <nav>
+        <ul>
+          <li><a href="registrar_item_perdido.html">Registrar Perdido</a></li>
+          <li><a href="registrar_item_encontrado.html">Registrar Encontrado</a></li>
+          <li><a href="buscar_itens_perdidos.html">Buscar Itens</a></li>
+          <li><a href="como_funciona.html">Como Funciona</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Seção Principal -->
+  <section class="hero">
+    <div class="container">
+      <h1>Achados e Perdidos SENAI</h1>
+      <p>Registre, busque e recupere seus itens de forma rápida e segura!</p>
+      <div class="cta-buttons">
+        <a href="#registrar-perdido" class="btn btn-primary">Registrar Item Perdido</a>
+        <a href="#registrar-encontrado" class="btn btn-secondary">Registrar Item Encontrado</a>
+        <a href="#buscar" class="btn btn-search">Buscar Itens</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de Busca -->
+  <section class="search">
+    <div class="container">
+      <form id="search-form">
+        <input type="text" id="search-input" placeholder="Digite o que perdeu (ex.: casaco azul)">
+        <button type="submit" class="btn btn-search">🔍 Buscar</button>
+        <div class="search-feedback"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Como Funciona -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2>Como Funciona</h2>
+      <div class="steps">
+        <div class="step">
+          <img src="img/icone-registrar.png" alt="Ícone Registrar">
+          <h3>Registrar</h3>
+          <p>Registre seu item perdido ou encontrado no sistema.</p>
+        </div>
+        <div class="step">
+          <img src="img/icone-descrever.png" alt="Ícone Descrever">
+          <h3>Descrever</h3>
+          <p>Forneça detalhes para facilitar a identificação.</p>
+        </div>
+        <div class="step">
+          <img src="img/icone-notificacao.png" alt="Ícone Notificação">
+          <h3>Notificação</h3>
+          <p>Receba alertas quando houver correspondência.</p>
+        </div>
+        <div class="step">
+          <img src="img/icone-devolucao.png" alt="Ícone Devolução">
+          <h3>Devolução</h3>
+          <p>Retire seu item com segurança no setor pedagógico.</p>
+        </div>
+      </div>
+      <a href="#como-funciona" class="btn btn-info">Saiba Mais</a>
+    </div>
+  </section>
+
+  <!-- Privacidade -->
+  <section class="privacy">
+    <div class="container">
+      <p>Seus dados estão protegidos! Nosso sistema segue a <strong>LGPD</strong> para garantir sua privacidade.</p>
+      <a href="politica_de_privacidade.html">Política de Privacidade</a>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container">
+      <p>SENAI | Contato: achados.perdidos@senai.br | <a href="politica_de_privacidade.html">Política de Privacidade</a> | <a href="#termos-uso">Termos de Uso</a></p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
