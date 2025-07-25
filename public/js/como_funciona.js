@@ -8,15 +8,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Adicionar feedback ao clicar nos links legais
+  // Adicionar navegação aos links legais
   const legalLinks = document.querySelectorAll('.links-legais ul li a');
   legalLinks.forEach(link => {
     link.addEventListener('click', function(event) {
-      // Simulação de navegação (substituir por links reais)
       event.preventDefault();
-      const page = this.textContent;
-      alert(`Navegando para: ${page}`);
-      // Exemplo: window.location.href = this.getAttribute('href');
+      const page = this.textContent.trim();
+      let targetUrl;
+
+      // Definir URLs reais para cada link
+      switch(page) {
+        case 'Termos de Uso':
+          targetUrl = '/termos_de_uso.html';
+          break;
+        case 'Política de Privacidade':
+          targetUrl = '/politica_de_privacidade.html';
+          break;
+        case 'LGPD':
+          targetUrl = '/lgpd.html';
+          break;
+        default:
+          targetUrl = this.getAttribute('href');
+      }
+
+      // Redirecionar para a página correspondente
+      window.location.href = targetUrl;
     });
   });
 

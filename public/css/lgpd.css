@@ -23,7 +23,6 @@ header {
   background: linear-gradient(90deg, #003087, #0047ab);
   color: white;
   padding: 10px 0;
-  position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra fixa, sem transição */
