@@ -172,6 +172,23 @@ header nav ul li a:hover {
   opacity: 0.9;
 }
 
+/* Link para ver todos os itens */
+.link-todos-itens {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.link-todos-itens a {
+  color: #003087;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.link-todos-itens a:hover {
+  text-decoration: underline;
+}
+
 /* Rodapé */
 footer {
   background: #003087;

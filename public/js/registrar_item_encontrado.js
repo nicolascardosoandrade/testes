@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    if (!descricao || descricao.length < 10) {
-      showFeedback('A descrição deve ter pelo menos 10 caracteres.');
+    if (!descricao) {
+      showFeedback('A descrição é obrigatória.');
       descricaoInput.focus();
       return;
     }
@@ -58,25 +58,28 @@ document.addEventListener('DOMContentLoaded', function() {
     formData.append('data', data);
     if (foto) formData.append('foto', foto);
 
-    // Simulação de envio ao backend
+    // Enviar dados ao servidor
     showFeedback('Registrando item...', false);
-    // Exemplo de integração com API:
-    // fetch('/api/registrar-encontrado', {
-    //   method: 'POST',
-    //   body: formData
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     if (data.success) {
-    //       showFeedback('Item registrado com sucesso!', false);
-    //       registrarForm.reset();
-    //     } else {
-    //       showFeedback('Erro ao registrar item.');
-    //     }
-    //   })
-    //   .catch(error => {
-    //     showFeedback('Erro ao conectar com o servidor.');
-    //   });
+    fetch('/api/registrar-encontrado', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showFeedback('Item registrado com sucesso!', false);
+          registrarForm.reset();
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 3000); // Redireciona após 3 segundos
+        } else {
+          showFeedback(data.message || 'Erro ao registrar item.');
+        }
+      })
+      .catch(error => {
+        showFeedback('Erro ao conectar com o servidor.');
+        console.error('Erro:', error);
+      });
   });
 
   // Acessibilidade: Foco no campo de nome ao carregar

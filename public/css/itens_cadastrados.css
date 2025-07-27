@@ -1,0 +1,168 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da viewport */
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Cabeçalho */
+header {
+  background: #003087;
+  color: white;
+  padding: 10px 0;
+  top: 0;
+  z-index: 100;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  height: 50px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Seção de Itens Cadastrados */
+.itens-cadastrados {
+  padding: 50px 0;
+  text-align: center;
+  flex: 1 0 auto; /* Permite que a seção cresça e ocupe o espaço disponível */
+}
+
+.itens-cadastrados h1 {
+  font-size: 2em;
+  color: #003087;
+  margin-bottom: 10px;
+}
+
+.itens-cadastrados p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.itens-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
+}
+
+.item-card h3 {
+  font-size: 1.2em;
+  color: #003087;
+  margin-bottom: 10px;
+}
+
+.item-card p {
+  font-size: 0.95em;
+  margin-bottom: 5px;
+}
+
+.item-card .foto {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.feedback {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #d32f2f;
+}
+
+.feedback.success {
+  color: #00a859;
+}
+
+/* Rodapé */
+footer {
+  background: #003087;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  flex-shrink: 0; /* Impede que o footer encolha */
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .itens-cadastrados {
+    padding: 30px 0;
+  }
+
+  .itens-cadastrados h1 {
+    font-size: 1.5em;
+  }
+
+  .itens-cadastrados p {
+    font-size: 1em;
+  }
+
+  .item-card {
+    max-width: 90%;
+  }
+}

@@ -31,3 +31,16 @@
 		UNIQUE KEY unique_token (token)
 );
 
+-- Criar a tabela para itens encontrados
+CREATE TABLE IF NOT EXISTS itens_encontrados (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome_item VARCHAR(100) NOT NULL,
+  descricao TEXT NOT NULL,
+  local_encontrado ENUM('biblioteca', 'sala', 'refeitorio', 'outros') NOT NULL,
+  data_encontrada DATE NOT NULL,
+  foto_path VARCHAR(255) DEFAULT NULL,
+  data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('pendente', 'reclamado') DEFAULT 'pendente',
+  INDEX idx_local_data (local_encontrado, data_encontrada)
+) ENGINE=InnoDB;
+

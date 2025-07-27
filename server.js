@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const multer = require('multer'); // Added multer
 
 dotenv.config();
 
@@ -12,9 +13,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use((req, res, next) => {
+  console.log(`Requisição para: ${req.url}`);
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Multer configuration for file uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); // Ensure this directory exists
+  },
+  filename: function (req, file, cb) {
+    const nomeItem = req.body.nome_item ? req.body.nome_item.replace(/[^a-zA-Z0-9]/g, '_') : 'item';
+    const timestamp = Date.now();
+    const extension = path.extname(file.originalname);
+    cb(null, `${nomeItem}_${timestamp}${extension}`); // Renamed filename
+  }
+});
+const upload = multer({ storage: storage });
 
 // Configuração do banco de dados
 const db = mysql.createPool({
@@ -149,13 +168,39 @@ app.post('/api/registrar-perdido', (req, res) => {
 });
 
 // Rota para registro de item encontrado
-app.post('/api/registrar-encontrado', (req, res) => {
+app.post('/api/registrar-encontrado', upload.single('foto'), async (req, res) => {
   const { nome_item, descricao, local, data } = req.body;
+  const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+
   if (!nome_item || !descricao || !local || !data) {
     return res.status(400).json({ success: false, message: 'Todos os campos obrigatórios devem ser preenchidos.' });
   }
-  console.log(`Item encontrado registrado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, { nome_item, descricao, local, data });
-  res.status(200).json({ success: true, message: 'Item encontrado registrado com sucesso!' });
+
+  try {
+    const [result] = await db.query(
+      'INSERT INTO itens_encontrados (nome_item, descricao, local_encontrado, data_encontrada, foto_path) VALUES (?, ?, ?, ?, ?)',
+      [nome_item, descricao, local, data, fotoPath]
+    );
+
+    console.log(`Item encontrado registrado com ID ${result.insertId} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, { nome_item, descricao, local, data, fotoPath });
+    res.status(200).json({ success: true, message: 'Item encontrado registrado com sucesso!' });
+  } catch (error) {
+    console.error(`Erro ao registrar item encontrado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao registrar item. Tente novamente.' });
+  }
+});
+
+// Rota para buscar todos os itens encontrados
+app.get('/api/itens-encontrados', async (req, res) => {
+  try {
+    console.log('Tentando buscar itens da tabela itens_encontrados...');
+    const [rows] = await db.query('SELECT * FROM itens_encontrados');
+    console.log('Itens encontrados:', rows);
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(`Erro ao buscar itens em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao buscar itens.' });
+  }
 });
 
 // Rota para iniciar redefinição de senha
