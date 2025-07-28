@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const multer = require('multer'); // Added multer
+const multer = require('multer');
+const session = require('express-session');
 
 dotenv.config();
 
@@ -14,23 +15,31 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use((req, res, next) => {
-  console.log(`Requisição para: ${req.url}`);
+  console.log(`Requisição para: ${req.url} às ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
   next();
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Configuração de sessões
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'sua-chave-secreta-super-segura',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 24 horas
+}));
+
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/'); // Ensure this directory exists
+    cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
     const nomeItem = req.body.nome_item ? req.body.nome_item.replace(/[^a-zA-Z0-9]/g, '_') : 'item';
     const timestamp = Date.now();
     const extension = path.extname(file.originalname);
-    cb(null, `${nomeItem}_${timestamp}${extension}`); // Renamed filename
+    cb(null, `${nomeItem}_${timestamp}${extension}`);
   }
 });
 const upload = multer({ storage: storage });
@@ -126,35 +135,68 @@ app.post('/api/registrar-usuario', async (req, res) => {
   }
 });
 
-// Rota para login
+// Rota para login com logs de depuração
 app.post('/api/login', async (req, res) => {
   const { registro, senha } = req.body;
+  console.log(`Tentativa de login - Registro: ${registro}, Senha: [HIDDEN]`);
 
   if (!registro || !/^\d{6,10}$/.test(registro)) {
-    return res.status(400).json({ success: false, message: 'Registro acadêmico inválido (mínimo 6 dígitos).' });
+    console.log(`Validação falhou: Registro inválido (${registro})`);
+    return res.status(400).json({ success: false, message: 'Registro acadêmico inválido (6 a 10 dígitos).' });
   }
   if (!senha || senha.length < 6) {
+    console.log(`Validação falhou: Senha inválida (tamanho: ${senha.length})`);
     return res.status(400).json({ success: false, message: 'A senha deve ter pelo menos 6 caracteres.' });
   }
 
   try {
     const [users] = await db.query('SELECT * FROM usuarios WHERE registro = ?', [registro]);
+    console.log(`Usuários encontrados: ${users.length}`);
     if (users.length === 0) {
+      console.log(`Registro ${registro} não encontrado no banco de dados`);
       return res.status(404).json({ success: false, message: 'Registro não encontrado.' });
     }
 
     const user = users[0];
     const match = await bcrypt.compare(senha, user.senha);
+    console.log(`Comparação de senha para registro ${registro}: ${match}`);
     if (!match) {
       return res.status(401).json({ success: false, message: 'Senha incorreta.' });
     }
 
-    console.log(`Login bem-sucedido para registro ${registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`);
+    req.session.user = {
+      id: user.id,
+      registro: user.registro,
+      nome: user.nome,
+      email: user.email
+    };
+
+    console.log(`Login bem-sucedido para registro ${registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
     res.status(200).json({ success: true, message: 'Login bem-sucedido! Redirecionando...', redirect: '/index.html' });
   } catch (error) {
     console.error(`Erro ao autenticar em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
     res.status(500).json({ success: false, message: 'Erro ao autenticar. Tente novamente.' });
   }
+});
+
+// Rota para verificar se o usuário está autenticado
+app.get('/api/check-auth', (req, res) => {
+  if (req.session.user) {
+    res.status(200).json({ success: true, user: req.session.user });
+  } else {
+    res.status(401).json({ success: false, message: 'Não autenticado.' });
+  }
+});
+
+// Rota para logout
+app.post('/api/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error(`Erro ao fazer logout em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, err);
+      return res.status(500).json({ success: false, message: 'Erro ao fazer logout.' });
+    }
+    res.status(200).json({ success: true, message: 'Logout realizado com sucesso!' });
+  });
 });
 
 // Rota para registro de item perdido
@@ -219,7 +261,7 @@ app.post('/api/forgot-password', async (req, res) => {
 
     const user = users[0];
     const token = crypto.randomBytes(20).toString('hex');
-    const expires = new Date(Date.now() + 3600000); // 1 hora de validade
+    const expires = new Date(Date.now() + 3600000);
 
     await db.query(
       'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)',

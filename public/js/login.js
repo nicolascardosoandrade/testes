@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const senha = senhaInput.value.trim();
 
     if (!registro || !/^\d{6,10}$/.test(registro)) {
-      showFeedback('Por favor, digite um registro acadêmico válido (mínimo 6 dígitos).');
+      showFeedback('Por favor, digite um registro acadêmico válido (6 a 10 dígitos).');
       registroInput.focus();
       return;
     }
@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Erro na autenticação: ${response.status}`);
+          return response.json().then(data => {
+            throw new Error(data.message || `Erro na autenticação: ${response.status}`);
+          });
         }
         return response.json();
       })
@@ -56,15 +58,15 @@ document.addEventListener('DOMContentLoaded', function() {
         showFeedback(data.message, !data.success);
         if (data.success && data.redirect) {
           setTimeout(() => {
-            registroInput.value = ''; // Limpa o campo de registro
-            senhaInput.value = '';   // Limpa o campo de senha
-            window.location.href = data.redirect; // Redireciona para o valor de redirect
+            registroInput.value = '';
+            senhaInput.value = '';
+            window.location.href = data.redirect;
           }, 2000);
         }
       })
       .catch(error => {
         console.error('Erro na autenticação:', error);
-        showFeedback('Erro ao autenticar. Tente novamente.');
+        showFeedback(error.message || 'Erro ao autenticar. Tente novamente.');
       });
   });
 
