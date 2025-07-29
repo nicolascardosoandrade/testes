@@ -25,6 +25,7 @@ header {
   background: #003087;
   color: white;
   padding: 15px 0;
+  position: sticky;
   top: 0;
   z-index: 100;
 }
@@ -34,10 +35,18 @@ header .container {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 header .logo {
   height: 40px;
+}
+
+header .user-greeting {
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  margin: 0 10px;
 }
 
 header nav ul {
@@ -367,6 +376,12 @@ footer a:hover {
     height: 35px;
   }
 
+  header .user-greeting {
+    font-size: 0.95em;
+    margin: 0;
+    text-align: center;
+  }
+
   header nav ul {
     flex-direction: column;
     gap: 10px;
@@ -487,6 +502,10 @@ footer a:hover {
   /* Cabeçalho */
   header .logo {
     height: 30px;
+  }
+
+  header .user-greeting {
+    font-size: 0.9em;
   }
 
   header nav ul li a {

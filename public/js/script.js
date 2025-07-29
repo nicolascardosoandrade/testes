@@ -5,225 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function checkAuthentication() {
     fetch('/api/check-auth', {
       method: 'GET',
-      credentials: 'include' // Envia cookies de sessão
-    })
-      .then(response => response.json())
-      .then(data => {
-        const authLinks = document.querySelectorAll('.auth-link');
-        const logoutLink = document.querySelector('.logout-link');
-        const protectedElements = document.querySelectorAll('[data-protected="true"]');
-
-        if (data.success) {
-          // Usuário autenticado: oculta Login/Cadastre-se, exibe Sair
-          authLinks.forEach(link => link.style.display = 'none');
-          logoutLink.style.display = 'block';
-          // Habilita navegação normal para elementos protegidos
-          protectedElements.forEach(element => {
-            element.classList.remove('disabled');
-            element.addEventListener('click', () => {
-              window.location.href = element.getAttribute('href');
-            });
-          });
-        } else {
-          // Usuário não autenticado: exibe Login/Cadastre-se, oculta Sair
-          authLinks.forEach(link => link.style.display = 'block');
-          logoutLink.style.display = 'none';
-          // Desativa elementos protegidos e exibe alert
-          protectedElements.forEach(element => {
-            element.classList.add('disabled');
-            element.addEventListener('click', (e) => {
-              e.preventDefault();
-              alert('Por favor, faça login para acessar esta funcionalidade.');
-            });
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Erro ao verificar autenticação:', error);
-        alert('Erro ao verificar autenticação. Tente novamente.');
-      });
-  }
-
-  // ===========================
-  // LÓGICA DE LOGOUT
-  // ===========================
-  const logoutLink = document.querySelector('.logout-link');
-  if (logoutLink) {
-    logoutLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include'
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert('Logout realizado com sucesso!');
-            window.location.reload(); // Recarrega a página para atualizar a interface
-          } else {
-            alert('Erro ao fazer logout. Tente novamente.');
-          }
-        })
-        .catch(error => {
-          console.error('Erro ao fazer logout:', error);
-          alert('Erro ao fazer logout. Tente novamente.');
-        });
-    });
-  }
-
-  // ===========================
-  // LÓGICA DE BUSCA E FILTROS
-  // ===========================
-  const searchForm = document.getElementById('search-form');
-  const searchInput = document.getElementById('search-input');
-  const feedbackDiv = document.querySelector('.search-feedback');
-
-  function showFeedback(message, isError = false) {
-    if (feedbackDiv) {
-      feedbackDiv.textContent = message;
-      feedbackDiv.style.color = isError ? '#d32f2f' : '#00a859';
-      feedbackDiv.style.marginTop = '10px';
-      feedbackDiv.style.fontSize = '0.9em';
-      setTimeout(() => {
-        feedbackDiv.textContent = '';
-      }, 3000);
-    } else {
-      alert(message); // Fallback para alert
-    }
-  }
-
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const query = searchInput.value.trim();
-
-      if (query.length < 3) {
-        showFeedback('Digite pelo menos 3 caracteres para buscar.', true);
-        searchInput.focus();
-        return;
-      }
-
-      showFeedback(`Buscando por: ${query}`);
-      // Simulação de busca (substituir por chamada real à API se necessário)
-    });
-
-    searchInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' && !searchForm.contains(document.activeElement)) {
-        searchInput.focus();
-      }
-    });
-
-    const filterContainer = document.createElement('div');
-    filterContainer.className = 'filter-container';
-    filterContainer.innerHTML = `
-      <select id="category-filter">
-        <option value="">Selecione uma categoria</option>
-        <option value="roupas">Roupas</option>
-        <option value="eletronicos">Eletrônicos</option>
-        <option value="documentos">Documentos</option>
-        <option value="outros">Outros</option>
-      </select>
-      <select id="location-filter">
-        <option value="">Selecione um local</option>
-        <option value="biblioteca">Biblioteca</option>
-        <option value="sala">Sala de Aula</option>
-        <option value="refeitorio">Refeitório</option>
-      </select>
-    `;
-    searchForm.insertBefore(filterContainer, searchInput);
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .filter-container {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
-      }
-      .filter-container select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 0.9em;
-      }
-      .search-feedback {
-        text-align: center;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // ===========================
-  // LÓGICA DO CARROSSEL
-  // ===========================
-  const track = document.getElementById("carouselTrack");
-  const indicators = document.getElementById("carouselIndicators").children;
-  const totalSlides = track.children.length;
-  let currentIndex = 0;
-  let interval;
-
-  function goToSlide(index) {
-    currentIndex = index;
-    updateCarousel();
-    resetAutoplay();
-  }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateCarousel();
-    resetAutoplay();
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateCarousel();
-    resetAutoplay();
-  }
-
-  function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * 100}vw)`;
-    for (let i = 0; i < indicators.length; i++) {
-      indicators[i].classList.toggle("active", i === currentIndex);
-    }
-  }
-
-  function startAutoplay() {
-    interval = setInterval(() => {
-      nextSlide();
-    }, 5000); // 5 segundos
-  }
-
-  function resetAutoplay() {
-    clearInterval(interval);
-    startAutoplay();
-  }
-
-  // Adiciona eventos aos botões de navegação
-  const prevButton = document.querySelector('.carousel-btn.prev');
-  const nextButton = document.querySelector('.carousel-btn.next');
-
-  if (prevButton && nextButton) {
-    prevButton.addEventListener('click', prevSlide);
-    nextButton.addEventListener('click', nextSlide);
-  }
-
-  // Adiciona eventos às bolinhas
-  for (let i = 0; i < indicators.length; i++) {
-    indicators[i].addEventListener('click', () => goToSlide(i));
-  }
-
-  // Iniciar autoplay
-  startAutoplay();
-
-  // Verificar autenticação ao carregar a página
-  checkAuthentication();
-});document.addEventListener('DOMContentLoaded', function () {
-  // ===========================
-  // VERIFICAÇÃO DE AUTENTICAÇÃO
-  // ===========================
-  function checkAuthentication() {
-    fetch('/api/check-auth', {
-      method: 'GET',
       credentials: 'include'
     })
       .then(response => response.json())
@@ -231,10 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const authLinks = document.querySelectorAll('.auth-link');
         const logoutLink = document.querySelector('.logout-link');
         const protectedElements = document.querySelectorAll('[data-protected="true"]');
+        const userGreeting = document.querySelector('.user-greeting');
 
-        if (data.success) {
+        if (data.success && data.user) {
+          // Usuário autenticado: oculta Login/Cadastre-se, exibe Sair e saudação
           authLinks.forEach(link => link.style.display = 'none');
           logoutLink.style.display = 'block';
+          userGreeting.style.display = 'block';
+          userGreeting.textContent = `Olá, ${data.user.nome}!`;
           protectedElements.forEach(element => {
             element.classList.remove('disabled');
             element.addEventListener('click', () => {
@@ -242,8 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
           });
         } else {
+          // Usuário não autenticado: exibe Login/Cadastre-se, oculta Sair e saudação
           authLinks.forEach(link => link.style.display = 'block');
           logoutLink.style.display = 'none';
+          userGreeting.style.display = 'none';
           protectedElements.forEach(element => {
             element.classList.add('disabled');
             element.addEventListener('click', (e) => {
@@ -284,87 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
           alert('Erro ao fazer logout. Tente novamente.');
         });
     });
-  }
-
-  // ===========================
-  // LÓGICA DE BUSCA E FILTROS
-  // ===========================
-  const searchForm = document.getElementById('search-form');
-  const searchInput = document.getElementById('search-input');
-  const feedbackDiv = document.querySelector('.search-feedback');
-
-  function showFeedback(message, isError = false) {
-    if (feedbackDiv) {
-      feedbackDiv.textContent = message;
-      feedbackDiv.style.color = isError ? '#d32f2f' : '#00a859';
-      feedbackDiv.style.marginTop = '10px';
-      feedbackDiv.style.fontSize = '0.9em';
-      setTimeout(() => {
-        feedbackDiv.textContent = '';
-      }, 3000);
-    } else {
-      alert(message);
-    }
-  }
-
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const query = searchInput.value.trim();
-
-      if (query.length < 3) {
-        showFeedback('Digite pelo menos 3 caracteres para buscar.', true);
-        searchInput.focus();
-        return;
-      }
-
-      showFeedback(`Buscando por: ${query}`);
-    });
-
-    searchInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter' && !searchForm.contains(document.activeElement)) {
-        searchInput.focus();
-      }
-    });
-
-    const filterContainer = document.createElement('div');
-    filterContainer.className = 'filter-container';
-    filterContainer.innerHTML = `
-      <select id="category-filter">
-        <option value="">Selecione uma categoria</option>
-        <option value="roupas">Roupas</option>
-        <option value="eletronicos">Eletrônicos</option>
-        <option value="documentos">Documentos</option>
-        <option value="outros">Outros</option>
-      </select>
-      <select id="location-filter">
-        <option value="">Selecione um local</option>
-        <option value="biblioteca">Biblioteca</option>
-        <option value="sala">Sala de Aula</option>
-        <option value="refeitorio">Refeitório</option>
-      </select>
-    `;
-    searchForm.insertBefore(filterContainer, searchInput);
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .filter-container {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
-      }
-      .filter-container select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 0.9em;
-      }
-      .search-feedback {
-        text-align: center;
-      }
-    `;
-    document.head.appendChild(style);
   }
 
   // ===========================
