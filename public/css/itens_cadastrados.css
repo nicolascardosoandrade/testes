@@ -12,7 +12,7 @@ body {
   background: #f4f4f4;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da viewport */
+  min-height: 100vh;
 }
 
 /* Container */
@@ -61,7 +61,7 @@ header nav ul li a:hover {
 .itens-cadastrados {
   padding: 50px 0;
   text-align: center;
-  flex: 1 0 auto; /* Permite que a seção cresça e ocupe o espaço disponível */
+  flex: 1 0 auto;
 }
 
 .itens-cadastrados h1 {
@@ -75,39 +75,49 @@ header nav ul li a:hover {
   margin-bottom: 20px;
 }
 
-.itens-list {
+.busca-form {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
-  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.item-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
+.form-group {
+  flex: 1;
+  min-width: 200px;
   text-align: left;
 }
 
-.item-card h3 {
-  font-size: 1.2em;
-  color: #003087;
-  margin-bottom: 10px;
-}
-
-.item-card p {
-  font-size: 0.95em;
+.form-group label {
+  display: block;
+  font-weight: bold;
   margin-bottom: 5px;
+  color: #003087;
 }
 
-.item-card .foto {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1em;
+}
+
+.btn-buscar {
+  background: #003087;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+.btn-buscar:hover {
+  background: #00205b;
 }
 
 .feedback {
@@ -120,13 +130,67 @@ header nav ul li a:hover {
   color: #00a859;
 }
 
+.lista-resultados {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.resultado-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+}
+
+.item-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.item-foto {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.item-detalhes {
+  flex: 1;
+}
+
+.item-detalhes p {
+  font-size: 0.95em;
+  margin-bottom: 8px;
+}
+
+.btn-reivindicar {
+  background: #00a859;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn-reivindicar:hover {
+  background: #008c48;
+}
+
 /* Rodapé */
 footer {
   background: #003087;
   color: white;
   text-align: center;
   padding: 10px 0;
-  flex-shrink: 0; /* Impede que o footer encolha */
+  flex-shrink: 0;
 }
 
 footer a {
@@ -162,7 +226,23 @@ footer a:hover {
     font-size: 1em;
   }
 
-  .item-card {
+  .busca-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 100%;
     max-width: 90%;
+  }
+
+  .item-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-foto {
+    max-width: 100%;
+    height: auto;
   }
 }

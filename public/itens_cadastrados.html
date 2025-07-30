@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Itens Perdidos Cadastrados - Achados e Perdidos SENAI</title>
+  <title>Itens Encontrados Cadastrados - Achados e Perdidos SENAI</title>
   <link rel="stylesheet" href="css/itens_cadastrados.css">
   <link rel="icon" href="img/startech-icon.png" type="image/x-icon">
 </head>
@@ -27,10 +27,41 @@
   <!-- Seção de Itens Cadastrados -->
   <section class="itens-cadastrados">
     <div class="container">
-      <h1>Itens Perdidos Cadastrados</h1>
-      <p>Veja a lista de itens perdidos registrados no sistema.</p>
-      <div id="itens-list" class="itens-list"></div>
+      <h1>Itens Encontrados Cadastrados</h1>
+      <p>Veja a lista de itens encontrados registrados no sistema ou use os filtros para buscar itens específicos.</p>
+      <form id="busca-form" class="busca-form">
+        <div class="form-group">
+          <label for="termo">Termo de Busca:</label>
+          <input type="text" id="termo" name="termo" placeholder="Ex.: Caneta, Chaveiro">
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" name="categoria">
+            <option value="">Todas</option>
+            <option value="roupas">Roupas</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="documentos">Documentos</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="local">Local Encontrado:</label>
+          <select id="local" name="local">
+            <option value="">Todos</option>
+            <option value="biblioteca">Biblioteca</option>
+            <option value="sala">Sala</option>
+            <option value="refeitorio">Refeitório</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="data">Data Encontrada:</label>
+          <input type="date" id="data" name="data">
+        </div>
+        <button type="submit" class="btn-buscar">Buscar</button>
+      </form>
       <div id="feedback" class="feedback"></div>
+      <div id="lista-resultados" class="lista-resultados"></div>
     </div>
   </section>
 
@@ -41,6 +72,6 @@
     </div>
   </footer>
 
-  <script src="/js/itens_encontrados.js"></script>
+  <script src="/js/itens_cadastrados.js"></script>
 </body>
 </html>

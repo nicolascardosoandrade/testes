@@ -211,20 +211,20 @@ app.post('/api/registrar-perdido', (req, res) => {
 
 // Rota para registro de item encontrado
 app.post('/api/registrar-encontrado', upload.single('foto'), async (req, res) => {
-  const { nome_item, descricao, local, data } = req.body;
+  const { nome_item, descricao, local, data, categoria } = req.body;
   const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
 
-  if (!nome_item || !descricao || !local || !data) {
+  if (!nome_item || !descricao || !local || !data || !categoria) {
     return res.status(400).json({ success: false, message: 'Todos os campos obrigatórios devem ser preenchidos.' });
   }
 
   try {
     const [result] = await db.query(
-      'INSERT INTO itens_encontrados (nome_item, descricao, local_encontrado, data_encontrada, foto_path) VALUES (?, ?, ?, ?, ?)',
-      [nome_item, descricao, local, data, fotoPath]
+      'INSERT INTO itens_encontrados (nome_item, descricao, local_encontrado, data_encontrada, foto_path, categoria) VALUES (?, ?, ?, ?, ?, ?)',
+      [nome_item, descricao, local, data, fotoPath, categoria]
     );
 
-    console.log(`Item encontrado registrado com ID ${result.insertId} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, { nome_item, descricao, local, data, fotoPath });
+    console.log(`Item encontrado registrado com ID ${result.insertId} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, { nome_item, descricao, local, data, fotoPath, categoria });
     res.status(200).json({ success: true, message: 'Item encontrado registrado com sucesso!' });
   } catch (error) {
     console.error(`Erro ao registrar item encontrado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
@@ -236,12 +236,71 @@ app.post('/api/registrar-encontrado', upload.single('foto'), async (req, res) =>
 app.get('/api/itens-encontrados', async (req, res) => {
   try {
     console.log('Tentando buscar itens da tabela itens_encontrados...');
-    const [rows] = await db.query('SELECT * FROM itens_encontrados');
+    const [rows] = await db.query('SELECT * FROM itens_encontrados WHERE status = "pendente"');
     console.log('Itens encontrados:', rows);
     res.status(200).json(rows);
   } catch (error) {
     console.error(`Erro ao buscar itens em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
     res.status(500).json({ success: false, message: 'Erro ao buscar itens.' });
+  }
+});
+
+// Rota para buscar itens com filtros
+app.get('/api/buscar', async (req, res) => {
+  const { termo, categoria, local, data } = req.query;
+
+  try {
+    let query = 'SELECT * FROM itens_encontrados WHERE status = "pendente"';
+    const params = [];
+
+    if (termo) {
+      query += ' AND (nome_item LIKE ? OR descricao LIKE ?)';
+      params.push(`%${termo}%`, `%${termo}%`);
+    }
+    if (categoria) {
+      query += ' AND categoria = ?';
+      params.push(categoria);
+    }
+    if (local) {
+      query += ' AND local_encontrado = ?';
+      params.push(local);
+    }
+    if (data) {
+      query += ' AND data_encontrada = ?';
+      params.push(data);
+    }
+
+    const [rows] = await db.query(query, params);
+    console.log(`Busca realizada em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, { termo, categoria, local, data, resultados: rows.length });
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(`Erro ao buscar itens em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao buscar itens.' });
+  }
+});
+
+// Rota para reivindicar item
+app.post('/api/reivindicar/:id', async (req, res) => {
+  const itemId = req.params.id;
+  const user = req.session.user;
+
+  if (!user) {
+    return res.status(401).json({ success: false, message: 'Você precisa estar autenticado para reivindicar um item.' });
+  }
+
+  try {
+    const [items] = await db.query('SELECT * FROM itens_encontrados WHERE id = ? AND status = "pendente"', [itemId]);
+    if (items.length === 0) {
+      return res.status(404).json({ success: false, message: 'Item não encontrado ou já foi reclamado.' });
+    }
+
+    await db.query('UPDATE itens_encontrados SET status = "reclamado", usuario_reivindicado_id = ? WHERE id = ?', [user.id, itemId]);
+
+    console.log(`Item ID ${itemId} reivindicado por usuário ${user.registro} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`);
+    res.status(200).json({ success: true, message: 'Item reivindicado com sucesso!' });
+  } catch (error) {
+    console.error(`Erro ao reivindicar item ID ${itemId} em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}:`, error);
+    res.status(500).json({ success: false, message: 'Erro ao reivindicar item. Tente novamente.' });
   }
 });
 
