@@ -39,6 +39,17 @@
           <textarea id="descricao" name="descricao" placeholder="Detalhes do item (cor, marca, estado, etc.)" required></textarea>
         </div>
         <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="todas">Todas</option>
+            <option value="roupas">Roupas</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="documentos">Documentos</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="local">Local Encontrado</label>
           <select id="local" name="local" required>
             <option value="">Selecione um local</option>

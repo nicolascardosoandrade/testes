@@ -10,9 +10,6 @@ body {
   line-height: 1.6;
   color: #333;
   background: #f4f4f4;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 /* Container */
@@ -24,7 +21,7 @@ body {
 
 /* Cabeçalho */
 header {
-  background: #003087;
+  background: #003087; /* Azul institucional SENAI */
   color: white;
   padding: 10px 0;
   top: 0;
@@ -61,7 +58,6 @@ header nav ul li a:hover {
 .itens-cadastrados {
   padding: 50px 0;
   text-align: center;
-  flex: 1 0 auto;
 }
 
 .itens-cadastrados h1 {
@@ -75,53 +71,62 @@ header nav ul li a:hover {
   margin-bottom: 20px;
 }
 
-.busca-form {
+.lista-itens {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 30px;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.form-group {
-  flex: 1;
-  min-width: 200px;
+.item-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+.item-card img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 5px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.item-info {
+  flex-grow: 1;
+}
+
+.item-info p {
+  margin: 5px 0;
+}
+
+.item-info p strong {
   color: #003087;
 }
 
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
-}
-
-.btn-buscar {
-  background: #003087;
+.btn-reivindicar {
+  background: #00a859;
   color: white;
-  border: none;
   padding: 10px 20px;
+  border: none;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 1em;
-  transition: background 0.3s;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-.btn-buscar:hover {
-  background: #00205b;
+.btn-reivindicar:hover {
+  opacity: 0.9;
 }
 
 .feedback {
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 0.9em;
   color: #d32f2f;
 }
@@ -130,67 +135,13 @@ header nav ul li a:hover {
   color: #00a859;
 }
 
-.lista-resultados {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.resultado-item {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
-}
-
-.item-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.item-foto {
-  max-width: 150px;
-  max-height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.item-detalhes {
-  flex: 1;
-}
-
-.item-detalhes p {
-  font-size: 0.95em;
-  margin-bottom: 8px;
-}
-
-.btn-reivindicar {
-  background: #00a859;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-  margin-top: 10px;
-  transition: background 0.3s;
-}
-
-.btn-reivindicar:hover {
-  background: #008c48;
-}
-
 /* Rodapé */
 footer {
   background: #003087;
   color: white;
   text-align: center;
   padding: 10px 0;
-  flex-shrink: 0;
+  margin-top: 20px;
 }
 
 footer a {
@@ -214,35 +165,19 @@ footer a:hover {
     text-align: center;
   }
 
-  .itens-cadastrados {
-    padding: 30px 0;
-  }
-
-  .itens-cadastrados h1 {
-    font-size: 1.5em;
-  }
-
-  .itens-cadastrados p {
-    font-size: 1em;
-  }
-
-  .busca-form {
+  .item-card {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .form-group {
+  .item-card img {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .btn-reivindicar {
     width: 100%;
-    max-width: 90%;
-  }
-
-  .item-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .item-foto {
-    max-width: 100%;
-    height: auto;
+    text-align: center;
   }
 }

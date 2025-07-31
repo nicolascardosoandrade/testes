@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const listaItens = document.getElementById('lista-itens');
+  const buscaForm = document.getElementById('busca-form');
+  const listaResultados = document.getElementById('lista-resultados');
   const feedbackDiv = document.getElementById('feedback');
 
   // Função para mostrar feedback
@@ -12,43 +13,121 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
   }
 
+  // Função para formatar a categoria
+  function formatarCategoria(categoria) {
+    const categorias = {
+      'todas': 'Todas',
+      'roupas': 'Roupas',
+      'eletronicos': 'Eletrônicos',
+      'documentos': 'Documentos',
+      'outros': 'Outros'
+    };
+    return categorias[categoria] || categoria;
+  }
+
+  // Função para formatar o local
+  function formatarLocal(local) {
+    const locais = {
+      'biblioteca': 'Biblioteca',
+      'sala': 'Sala de Aula',
+      'refeitorio': 'Refeitório',
+      'outros': 'Outros'
+    };
+    return locais[local] || local;
+  }
+
   // Função para buscar e exibir itens
-  async function carregarItens() {
+  async function carregarItens(termo = '', categoria = '', local = '', data = '') {
     try {
       showFeedback('Carregando itens...', false);
-      const response = await fetch('/api/itens-encontrados');
+      const queryParams = new URLSearchParams();
+      if (termo) queryParams.append('termo', termo);
+      if (categoria) queryParams.append('categoria', categoria);
+      if (local) queryParams.append('local', local);
+      if (data) queryParams.append('data', data);
+
+      const response = await fetch(`/api/buscar?${queryParams.toString()}`);
+      if (!response.ok) {
+        throw new Error('Erro na resposta do servidor');
+      }
       const itens = await response.json();
 
-      listaItens.innerHTML = '';
+      listaResultados.innerHTML = '';
       if (itens.length === 0) {
-        listaItens.innerHTML = '<p>Nenhum item encontrado.</p>';
-        showFeedback('Nenhum item cadastrado no momento.', false);
+        listaResultados.innerHTML = '<p>Nenhum item encontrado.</p>';
+        showFeedback('Nenhum item corresponde aos filtros selecionados.', false);
         return;
       }
 
       itens.forEach(item => {
         const itemCard = document.createElement('div');
-        itemCard.className = 'item-card';
+        itemCard.className = 'resultado-item';
         itemCard.innerHTML = `
-          ${item.foto_path ? `<img src="${item.foto_path}" alt="${item.nome_item}">` : ''}
-          <div class="item-info">
-            <p><strong>Item:</strong> ${item.nome_item}</p>
-            <p><strong>Descrição:</strong> ${item.descricao}</p>
-            <p><strong>Categoria:</strong> ${item.categoria}</p>
-            <p><strong>Local:</strong> ${item.local_encontrado}</p>
-            <p><strong>Data:</strong> ${new Date(item.data_encontrada).toLocaleDateString('pt-BR')}</p>
+          <div class="item-container">
+            ${item.foto_path ? `<img src="${item.foto_path}" alt="${item.nome_item}" class="item-foto">` : ''}
+            <div class="item-detalhes">
+              <p><strong>Item:</strong> ${item.nome_item}</p>
+              <p><strong>Descrição:</strong> ${item.descricao}</p>
+              <p><strong>Categoria:</strong> ${formatarCategoria(item.categoria)}</p>
+              <p><strong>Local:</strong> ${formatarLocal(item.local_encontrado)}</p>
+              <p><strong>Data:</strong> ${new Date(item.data_encontrada).toLocaleDateString('pt-BR')}</p>
+              <button class="btn-reivindicar" data-id="${item.id}">Reivindicar Item</button>
+            </div>
           </div>
-          <a href="registrar_item_perdido.html?id=${item.id}" class="btn-reivindicar">Reivindicar Item</a>
         `;
-        listaItens.appendChild(itemCard);
+        listaResultados.appendChild(itemCard);
+      });
+
+      // Adicionar eventos aos botões de reivindicação
+      document.querySelectorAll('.btn-reivindicar').forEach(button => {
+        button.addEventListener('click', async () => {
+          const itemId = button.getAttribute('data-id');
+          try {
+            const authResponse = await fetch('/api/check-auth');
+            const authData = await authResponse.json();
+            if (!authData.success) {
+              showFeedback('Você precisa estar logado para reivindicar um item.', true);
+              setTimeout(() => {
+                window.location.href = 'login.html';
+              }, 2000);
+              return;
+            }
+
+            const response = await fetch(`/api/reivindicar/${itemId}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const result = await response.json();
+            if (result.success) {
+              showFeedback('Item reivindicado com sucesso!', false);
+              carregarItens(termo, categoria, local, data); // Recarregar a lista
+            } else {
+              showFeedback(result.message || 'Erro ao reivindicar item.', true);
+            }
+          } catch (error) {
+            console.error('Erro ao reivindicar item:', error);
+            showFeedback('Erro ao reivindicar item. Tente novamente.', true);
+          }
+        });
       });
 
       showFeedback('Itens carregados com sucesso!', false);
     } catch (error) {
       console.error('Erro ao carregar itens:', error);
-      showFeedback('Erro ao carregar itens. Tente novamente.');
+      showFeedback('Erro ao carregar itens. Tente novamente.', true);
     }
   }
+
+  // Evento de submissão do formulário de busca
+  buscaForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const termo = document.getElementById('termo').value.trim();
+    const categoria = document.getElementById('categoria').value;
+    const local = document.getElementById('local').value;
+    const data = document.getElementById('data').value;
+
+    await carregarItens(termo, categoria, local, data);
+  });
 
   // Carregar itens ao abrir a página
   carregarItens();

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const registrarForm = document.getElementById('registrar-form');
   const nomeItemInput = document.getElementById('nome-item');
   const descricaoInput = document.getElementById('descricao');
+  const categoriaSelect = document.getElementById('categoria');
   const localSelect = document.getElementById('local');
   const dataInput = document.getElementById('data');
   const fotoInput = document.getElementById('foto');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
     const nomeItem = nomeItemInput.value.trim();
     const descricao = descricaoInput.value.trim();
+    const categoria = categoriaSelect.value;
     const local = localSelect.value;
     const data = dataInput.value;
     const foto = fotoInput.files[0];
@@ -35,6 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!descricao) {
       showFeedback('A descrição é obrigatória.');
       descricaoInput.focus();
+      return;
+    }
+
+    if (!categoria) {
+      showFeedback('Selecione uma categoria.');
+      categoriaSelect.focus();
       return;
     }
 
@@ -54,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formData = new FormData();
     formData.append('nome_item', nomeItem);
     formData.append('descricao', descricao);
+    formData.append('categoria', categoria);
     formData.append('local', local);
     formData.append('data', data);
     if (foto) formData.append('foto', foto);

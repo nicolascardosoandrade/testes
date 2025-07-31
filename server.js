@@ -30,7 +30,7 @@ app.use(session({
   cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 24 horas
 }));
 
-// Multer configuration for file uploads
+// Configuração do Multer para upload de arquivos
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads/');
@@ -145,7 +145,7 @@ app.post('/api/login', async (req, res) => {
     return res.status(400).json({ success: false, message: 'Registro acadêmico inválido (6 a 10 dígitos).' });
   }
   if (!senha || senha.length < 6) {
-    console.log(`Validação falhou: Senha inválida (tamanho: ${senha.length})`);
+    console.log(`Validação falhou: Senha inválida (tamanho: ${senha ? senha.length : 0})`);
     return res.status(400).json({ success: false, message: 'A senha deve ter pelo menos 6 caracteres.' });
   }
 
@@ -213,9 +213,13 @@ app.post('/api/registrar-perdido', (req, res) => {
 app.post('/api/registrar-encontrado', upload.single('foto'), async (req, res) => {
   const { nome_item, descricao, local, data, categoria } = req.body;
   const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+  const validCategories = ['todas', 'roupas', 'eletronicos', 'documentos', 'outros'];
 
   if (!nome_item || !descricao || !local || !data || !categoria) {
     return res.status(400).json({ success: false, message: 'Todos os campos obrigatórios devem ser preenchidos.' });
+  }
+  if (!validCategories.includes(categoria)) {
+    return res.status(400).json({ success: false, message: 'Categoria inválida. Escolha entre: ' + validCategories.join(', ') + '.' });
   }
 
   try {
@@ -248,6 +252,7 @@ app.get('/api/itens-encontrados', async (req, res) => {
 // Rota para buscar itens com filtros
 app.get('/api/buscar', async (req, res) => {
   const { termo, categoria, local, data } = req.query;
+  const validCategories = ['todas', 'roupas', 'eletronicos', 'documentos', 'outros'];
 
   try {
     let query = 'SELECT * FROM itens_encontrados WHERE status = "pendente"';
@@ -257,9 +262,11 @@ app.get('/api/buscar', async (req, res) => {
       query += ' AND (nome_item LIKE ? OR descricao LIKE ?)';
       params.push(`%${termo}%`, `%${termo}%`);
     }
-    if (categoria) {
+    if (categoria && validCategories.includes(categoria)) {
       query += ' AND categoria = ?';
       params.push(categoria);
+    } else if (categoria) {
+      return res.status(400).json({ success: false, message: 'Categoria inválida. Escolha entre: ' + validCategories.join(', ') + '.' });
     }
     if (local) {
       query += ' AND local_encontrado = ?';
@@ -320,19 +327,18 @@ app.post('/api/forgot-password', async (req, res) => {
 
     const user = users[0];
     const token = crypto.randomBytes(20).toString('hex');
-    const expires = new Date(Date.now() + 3600000);
+    const expires = new Date(Date.now() + 3600000); // 1 hora
 
     await db.query(
       'INSERT INTO password_resets (user_id, token, expires_at) VALUES (?, ?, ?)',
       [user.id, token, expires]
     );
 
-    const resetLink = `${process.env.APP_URL}/reset-password?token=${token}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
       subject: 'Redefinição de Senha - Achados e Perdidos SENAI',
-      text: `Clique no link para redefinir sua senha: ${resetLink}\nO link expira em 1 hora. Enviado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`
+      text: `Clique no link para redefinir sua senha: ${process.env.APP_URL}/reset-password?token=${token}\nO link expira em 1 hora. Enviado em ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}.`
     };
 
     await transporter.sendMail(mailOptions);
