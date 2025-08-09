@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Registros - Startech</title>
+    <link rel="stylesheet" href="css/meus_resgistros.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="img/startechlogo.png" alt="Logo Startech">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="inicial_lagado.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="itens_perdidos.html"><i class="fa-solid fa-box"></i> Itens Perdidos</a></li>
+                <li><a href="cadastrar_item.html"><i class="fa-solid fa-plus"></i> Cadastrar Item</a></li>
+                <li class="active"><a href="meus_registros.html"><i class="fa-solid fa-clock"></i> Meus Registros</a></li>
+                <li><a href="como-funciona.html"><i class="fa-solid fa-circle-question"></i> Como Funciona</a></li>
+                <li><a href="contato.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
+            </ul>
+        </nav>
+        <div class="config">
+            <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
+        </div>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="content">
+        <header>
+            <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i> Usuário 01
+            </div>
+        </header>
+
+        <section class="main-section">
+            <h1>Meus Registros</h1>
+            <div class="records-container" id="recordsList">
+                <!-- Registros do usuário serão carregados aqui -->
+            </div>
+        </section>
+    </main>
+
+    <script src="js/meus_registros.js"></script>
+</body>
+</html>

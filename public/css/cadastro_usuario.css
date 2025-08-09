@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('/public/img/plano-de-fundo-cadastro.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.register-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #007BFF;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: inline;
+    margin-left: 8px;
+    color: #555;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.form-group input[type="checkbox"] {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.register-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.register-btn:hover {
+    background-color: #0056b3;
+}
+
+.login-link {
+    margin-top: 10px;
+    color: #007BFF;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

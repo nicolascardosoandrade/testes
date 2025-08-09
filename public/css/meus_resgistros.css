@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #f8f8f8;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: white;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.sidebar .logo img {
+    width: 25px;
+    margin-right: 10px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    padding: 12px 20px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar nav ul li.active, 
+.sidebar nav ul li:hover {
+    background-color: #eaf3fb;
+    border-left: 3px solid #007bff;
+}
+
+.sidebar .config {
+    padding: 20px;
+}
+
+.sidebar .config a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Conteúdo */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #007bff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: #007bff;
+}
+
+/* Área principal */
+.main-section {
+    padding: 20px;
+}
+
+.main-section h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Lista de registros */
+.records-container {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 300px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
