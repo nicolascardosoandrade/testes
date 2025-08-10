@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Item - Startech</title>
-    <link rel="stylesheet" href="css/cadastrar_item.css">
+    <title>Configurações - Startech</title>
+    <link rel="stylesheet" href="css/configuracoes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -15,6 +15,7 @@
         </div>
         <div class="logo">
             <img src="img/startechlogo.png" alt="Startech">
+            <span class="logo-text">Startech</span>
         </div>
         <div class="user-info">
             <i class="fa-regular fa-user"></i>
@@ -28,40 +29,37 @@
             <ul>
                 <li><a href="inicial_logado.html"><i class="fa-solid fa-house"></i> Início</a></li>
                 <li><a href="itens_perdidos.html"><i class="fa-solid fa-box-open"></i> Itens Perdidos</a></li>
-                <li class="active"><a href="cadastrar_item.html"><i class="fa-solid fa-list"></i> Cadastrar Item</a></li>
+                <li><a href="cadastrar_item.html"><i class="fa-solid fa-list"></i> Cadastrar Item</a></li>
                 <li><a href="meus_registros.html"><i class="fa-solid fa-clipboard-list"></i> Meus Registros</a></li>
                 <li><a href="como_funciona.html"><i class="fa-solid fa-circle-question"></i> Como Funciona</a></li>
                 <li><a href="contato.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
             </ul>
         </nav>
-        <div class="settings">
+        <div class="settings active">
             <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
         </div>
     </aside>
 
     <!-- Conteúdo principal -->
     <main class="content">
-        <h1>Cadastrar Item</h1>
-        <form id="form-cadastrar">
-            <label for="nome">Nome do Item</label>
-            <input type="text" id="nome" placeholder="Digite o nome do item" required>
+        <h1>Configurações</h1>
+        <form id="form-configuracoes">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" placeholder="Digite seu nome" value="Usuário 01" required>
 
-            <label for="descricao">Descrição</label>
-            <textarea id="descricao" placeholder="Descreva o item" required></textarea>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="Digite seu e-mail" value="usuario01@exemplo.com" required>
 
-            <label for="local">Local Encontrado</label>
-            <input type="text" id="local" placeholder="Digite o local onde foi encontrado" required>
+            <label for="senha">Nova Senha</label>
+            <input type="password" id="senha" placeholder="Digite uma nova senha">
 
-            <label for="data">Data</label>
-            <input type="date" id="data" required>
+            <label for="confirmar-senha">Confirmar Nova Senha</label>
+            <input type="password" id="confirmar-senha" placeholder="Confirme a nova senha">
 
-            <label for="foto">Foto do Item</label>
-            <input type="file" id="foto" accept="image/*">
-
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Salvar Alterações</button>
         </form>
     </main>
 
-    <script src="js/cadastrar_item.js"></script>
+    <script src="js/configuracoes.js"></script>
 </body>
 </html>

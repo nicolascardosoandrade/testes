@@ -15,3 +15,13 @@ document.getElementById("form-cadastrar").addEventListener("submit", function(ev
     alert(`Item "${nome}" cadastrado com sucesso!`);
     this.reset();
 });
+
+// Lógica para recolher e expandir a sidebar
+const menuToggle = document.querySelector('.menu-toggle');
+const sidebar = document.querySelector('.sidebar');
+const content = document.querySelector('.content');
+
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('collapsed');
+    content.classList.toggle('expanded'); // Opcional, para ajustar espaço com sidebar recolhida
+});

@@ -1,28 +1,70 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif; /* Alterado de Arial para Segoe UI */
+    font-family: Arial, sans-serif;
 }
 
-body {
+/* Barra superior */
+.topbar {
+    height: 60px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
     display: flex;
-    background: #f8f9fa;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px; /* Espaçamento entre os elementos */
 }
 
+.topbar .menu-toggle {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo img {
+    height: 35px;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+.user-info {
+    border: 1px solid #007BFF;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #007BFF;
+    margin-left: auto; /* Empurra o user-info para a direita */
+}
+
+/* Sidebar */
 .sidebar {
-    width: 230px;
-    background: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 220px;
+    background: #fff;
     border-right: 1px solid #ddd;
+    padding-top: 20px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transition: transform 0.3s ease; /* Animação suave para recolher/expandir */
 }
 
-.sidebar .logo {
-    padding: 20px;
-    text-align: center;
+.sidebar.collapsed {
+    transform: translateX(-100%); /* Move a sidebar para fora da tela à esquerda */
 }
 
 .sidebar nav ul {
@@ -30,52 +72,76 @@ body {
 }
 
 .sidebar nav ul li {
-    padding: 14px 20px; /* Alterado de 12px para 14px */
-    cursor: pointer;
+    margin: 5px 0;
+}
+
+.sidebar nav ul li a {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #333;
-    font-size: 15px; /* Adicionado para corresponder a itens_perdidos.css */
+    padding: 10px 15px;
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
 
-.sidebar nav ul li.active, .sidebar nav ul li:hover {
+.sidebar nav ul li a:hover {
+    background: #f0f0f0;
+}
+
+.sidebar nav ul li.active a {
     background: #e6f0ff;
-    border-left: 4px solid #0056d2;
+    color: #007BFF;
 }
 
 .settings {
-    padding: 15px 20px;
-    border-top: 1px solid #ddd;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
     color: #555;
+    font-size: 14px;
     cursor: pointer;
-    font-size: 14px; /* Adicionado para corresponder a itens_perdidos.css */
 }
 
-main {
-    flex: 1;
-    padding: 20px;
-}
-
-header {
+.settings a {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
-.user-btn {
-    background: none;
-    border: 1px solid #ccc;
-    padding: 8px 14px; /* Alterado de 8px 12px para 8px 14px */
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 500; /* Adicionado para corresponder a itens_perdidos.css */
+.settings.active a {
+    color: #007BFF;
 }
 
+/* Conteúdo principal */
+.content {
+    margin-left: 240px; /* Espaço para a sidebar expandida */
+    min-height: calc(100vh - 60px); /* Altura total menos a altura da barra superior */
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Animação suave para o ajuste do conteúdo */
+}
+
+.content.expanded {
+    margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
+}
+
+/* Estatísticas */
 .stats {
     display: flex;
     gap: 15px;
     margin: 20px 0;
+}
+
+.stats h1 {
+    grid-column: 1 / -1;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
 }
 
 .card {
@@ -93,6 +159,7 @@ header {
     margin: 5px 0;
 }
 
+/* Itens Recentes */
 .recent-items .items-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -107,19 +174,19 @@ header {
 }
 
 .item h3 {
-    font-size: 16px; /* Adicionado para corresponder a itens_perdidos.css */
-    margin-bottom: 5px; /* Adicionado para corresponder a itens_perdidos.css */
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .item p {
-    font-size: 13px; /* Adicionado para corresponder a itens_perdidos.css */
-    color: #666; /* Adicionado para corresponder a itens_perdidos.css */
-    margin-bottom: 5px; /* Adicionado para corresponder a itens_perdidos.css */
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
 }
 
 .item span {
-    font-size: 12px; /* Adicionado para corresponder a itens_perdidos.css */
-    color: #999; /* Adicionado para corresponder a itens_perdidos.css */
+    font-size: 12px;
+    color: #999;
 }
 
 .blue {
@@ -130,6 +197,7 @@ header {
     color: #d63384;
 }
 
+/* Notícias */
 .news .news-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -148,12 +216,12 @@ header {
 }
 
 .news-item span {
-    font-size: 12px; /* Adicionado para corresponder a itens_perdidos.css */
-    color: #999; /* Adicionado para corresponder a itens_perdidos.css */
+    font-size: 12px;
+    color: #999;
 }
 
 .news-item p {
-    font-size: 13px; /* Adicionado para corresponder a itens_perdidos.css */
-    color: #666; /* Adicionado para corresponder a itens_perdidos.css */
-    margin-bottom: 5px; /* Adicionado para corresponder a itens_perdidos.css */
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
 }

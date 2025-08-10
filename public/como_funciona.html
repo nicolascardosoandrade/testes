@@ -3,37 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Como Funciona</title>
+    <title>Como Funciona - Startech</title>
     <link rel="stylesheet" href="css/como_funciona.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar">
+    <!-- Barra superior -->
+    <header class="topbar">
+        <div class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
         <div class="logo">
-            <img src="logo.png" alt="Logo Startech">
-            <span>Startech</span>
+            <img src="img/startechlogo.png" alt="Startech">
         </div>
-        <ul class="menu">
-            <li><a href="index.html"><i class="fa-solid fa-house"></i> Início</a></li>
-            <li><a href="itens-perdidos.html"><i class="fa-solid fa-box"></i> Itens Perdidos</a></li>
-            <li><a href="cadastrar.html"><i class="fa-solid fa-plus"></i> Cadastrar Item</a></li>
-            <li><a href="meus-registros.html"><i class="fa-solid fa-file"></i> Meus Registros</a></li>
-            <li class="active"><a href="como-funciona.html"><i class="fa-solid fa-circle-info"></i> Como Funciona</a></li>
-            <li><a href="contato.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
-        </ul>
+        <div class="user-info">
+            <i class="fa-regular fa-user"></i>
+            Usuário 01
+        </div>
+    </header>
+
+    <!-- Menu lateral -->
+    <aside class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="inicial_logado.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="itens_perdidos.html"><i class="fa-solid fa-box-open"></i> Itens Perdidos</a></li>
+                <li><a href="cadastrar_item.html"><i class="fa-solid fa-list"></i> Cadastrar Item</a></li>
+                <li><a href="meus_registros.html"><i class="fa-solid fa-clipboard-list"></i> Meus Registros</a></li>
+                <li class="active"><a href="como_funciona.html"><i class="fa-solid fa-circle-question"></i> Como Funciona</a></li>
+                <li><a href="contato.html"><i class="fa-solid fa-envelope"></i> Contato</a></li>
+            </ul>
+        </nav>
         <div class="settings">
-            <i class="fa-solid fa-gear"></i> Configurações
+            <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
         </div>
-    </div>
+    </aside>
 
-    <div class="main-content">
-        <header>
-            <button id="menu-toggle"><i class="fa-solid fa-bars"></i></button>
-            <div class="user-box">
-                <i class="fa-regular fa-user"></i> Usuário 01
-            </div>
-        </header>
-
+    <!-- Conteúdo principal -->
+    <main class="content">
         <section class="como-funciona">
             <h1>Como Funciona</h1>
 
@@ -93,7 +100,7 @@
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
     <script src="js/como_funciona.js"></script>
 </body>

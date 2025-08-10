@@ -122,10 +122,6 @@
 .content {
     margin-left: 240px; /* Espaço para a sidebar expandida */
     min-height: calc(100vh - 60px); /* Altura total menos a altura da barra superior */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
     padding: 20px;
     transition: margin-left 0.3s ease; /* Animação suave para o ajuste do conteúdo */
 }
@@ -134,43 +130,21 @@
     margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
 }
 
-/* Formulário */
-form {
-    background: #fff;
+/* Área principal */
+.main-section {
     padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-form label {
-    font-weight: bold;
-    margin-top: 10px;
-    display: block;
+.main-section h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
 }
 
-form input, form textarea, form button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-form textarea {
-    resize: none;
-    height: 100px;
-}
-
-form button {
-    margin-top: 15px;
-    background: #007BFF;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-form button:hover {
-    background: #0056b3;
+/* Lista de registros */
+.records-container {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 300px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
 }
