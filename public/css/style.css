@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     line-height: 1.6;
+    background-color: #f5f5f5;
 }
 
 header {
@@ -121,7 +122,7 @@ nav ul li a:hover {
 .imagem-intermediaria {
     width: 100%;
     overflow: hidden;
-    max-height: 400px; /* Limit the maximum height to prevent it from taking up the whole screen */
+    max-height: 400px;
 }
 
 .imagem-intermediaria img {
@@ -129,7 +130,7 @@ nav ul li a:hover {
     height: auto;
     display: block;
     object-fit: cover;
-    max-height: 400px; /* Ensure the image doesn't exceed the container's max height */
+    max-height: 400px;
 }
 
 .como-funciona, .sobre, .ajuda, .avaliacoes {
@@ -148,7 +149,7 @@ nav ul li a:hover {
     align-items: stretch;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 30px; /* Spacing between divs */
+    gap: 30px;
 }
 
 .step {
@@ -164,7 +165,7 @@ nav ul li a:hover {
 }
 
 .step-icon img {
-    width: 60px; /* Adjust based on your icon size */
+    width: 60px;
     margin-bottom: 10px;
 }
 
@@ -189,15 +190,48 @@ nav ul li a:hover {
     color: #555;
 }
 
-.sobre p {
-    max-width: 600px;
-    margin: 0 auto 20px;
+.sobre {
+    background-color: #fff;
+}
+
+.sobre-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.sobre-text {
+    flex: 1;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.sobre-text p {
+    max-width: 100%;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-image {
+    flex: 1;
+    max-width: 45%;
+}
+
+.sobre-image img {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
 }
 
 .fale-conosco {
     background-color: #000;
     color: #fff;
     padding: 10px 20px;
+    margin-top: 10px;
 }
 
 .fale-conosco:hover {
@@ -209,38 +243,86 @@ nav ul li a:hover {
     margin: 20px 0;
 }
 
+.ajuda-box {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 600px;
+    width: 100%;
+}
+
+.ajuda h2 {
+    color: #007BFF;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.ajuda p {
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
 .suporte {
     background-color: #007BFF;
     color: #fff;
     padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
 .suporte:hover {
     background-color: #0056b3;
 }
 
+.avaliacoes {
+    background-color: #f5f5f5;
+}
+
 .reviews {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .review {
     width: 30%;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .review p {
-    margin: 0 0 10px;
+    margin: 0 0 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.author-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .author {
+    margin: 0;
     font-style: italic;
     color: #555;
+    font-size: 14px;
 }
 
 footer {
@@ -254,7 +336,8 @@ footer {
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 20px;
-    margin-bottom: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .footer-logo img {
@@ -319,15 +402,39 @@ footer {
     .steps {
         flex-direction: column;
         align-items: stretch;
-        gap: 20px; /* Adjusted spacing for mobile */
+        gap: 20px;
     }
     .step {
         width: 100%;
     }
     .imagem-intermediaria {
-        max-height: 300px; /* Adjusted max height for mobile */
+        max-height: 300px;
     }
     .imagem-intermediaria img {
-        max-height: 300px; /* Adjusted max height for mobile */
+        max-height: 300px;
+    }
+    .sobre-content, .ajuda-content {
+        flex-direction: column;
+    }
+    .sobre-text, .ajuda-text {
+        padding-right: 0;
+    }
+    .sobre-image {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .sobre-image img {
+        height: 250px;
+    }
+    .reviews {
+        flex-direction: column;
+        align-items: center;
+    }
+    .review {
+        width: 100%;
+    }
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
     }
 }

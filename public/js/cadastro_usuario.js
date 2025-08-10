@@ -16,3 +16,15 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     console.log('Registration attempt:', { fullName, ra, email, phone, password });
     alert('Funcionalidade de cadastro seria implementada aqui. Verifique o console para detalhes.');
 });
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.toggle-password');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.textContent = '🙈';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.textContent = '👁️';
+    }
+}
