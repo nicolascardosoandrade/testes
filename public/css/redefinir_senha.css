@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('/public/assets/img/plano-de-fundo-cadastro.png') no-repeat center center fixed;
+    background: url('/public/assets/img/plano-de-fundo-login.png') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -20,7 +20,7 @@ body {
     height: auto;
 }
 
-.register-container {
+.reset-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
@@ -37,27 +37,25 @@ h2 {
     padding-bottom: 5px;
 }
 
+p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
 .form-group {
     margin-bottom: 15px;
     text-align: left;
 }
 
 .form-group label {
-    display: inline;
-    margin-left: 8px;
+    display: block;
+    margin-bottom: 5px;
     color: #555;
-    vertical-align: middle;
-    font-size: 14px;
 }
 
-.form-group input[type="checkbox"] {
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="text"] {
+input[type="password"] {
     width: 100%;
-    padding: 8px 36px 8px 8px; /* Add right padding to accommodate icon */
+    padding: 8px 36px 8px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -80,10 +78,10 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="password
     font-size: 18px;
     width: 20px;
     text-align: center;
-    line-height: 1; /* Ensure consistent vertical alignment */
+    line-height: 1;
 }
 
-.register-btn {
+.reset-btn {
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -91,22 +89,18 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="password
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
 }
 
-.register-btn:hover {
+.reset-btn:hover {
     background-color: #0056b3;
 }
 
-.login-link {
+.back-to-login {
     margin-top: 10px;
     color: #007BFF;
     cursor: pointer;
-    font-size: 14px;
-    text-align: center;
 }
 
-.login-link:hover {
+.back-to-login:hover {
     text-decoration: underline;
 }

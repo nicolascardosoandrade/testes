@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Startech</title>
+    <link rel="stylesheet" href="css/recuperar_senha.css">
+    <link rel="icon" href="assets/img/startechlogo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="assets/img/startechlogo.png" alt="Startech Logo" class="logo">
+    </div>
+    <div class="reset-container">
+        <h2>Recuperar Senha</h2>
+        <p>Informe seu registro acadêmico para receber um link de redefinição de senha no e-mail cadastrado.</p>
+        <form id="resetForm">
+            <div class="form-group">
+                <label for="registro">Registro Acadêmico</label>
+                <input type="text" id="registro" name="registro" placeholder="Digite seu registro acadêmico" required>
+            </div>
+            <button type="submit" class="reset-btn">ENVIAR LINK</button>
+            <p class="back-to-login"><a href="login.html">Voltar ao login</a></p>
+        </form>
+    </div>
+    <script src="js/recuperar_senha.js"></script>
+</body>
+</html>
