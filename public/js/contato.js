@@ -3,15 +3,14 @@ document.getElementById("form-contato").addEventListener("submit", function(even
 
     const nome = document.getElementById("nome").value.trim();
     const email = document.getElementById("email").value.trim();
-    const assunto = document.getElementById("assunto").value.trim();
     const mensagem = document.getElementById("mensagem").value.trim();
 
-    if (!nome || !email || !assunto || !mensagem) {
+    if (!nome || !email || !mensagem) {
         alert("Por favor, preencha todos os campos obrigatórios.");
         return;
     }
 
-    alert(`Mensagem enviada com sucesso! Nome: ${nome}, E-mail: ${email}, Assunto: ${assunto}`);
+    alert(`Mensagem enviada com sucesso! Nome: ${nome}, E-mail: ${email}`);
     this.reset();
 });
 

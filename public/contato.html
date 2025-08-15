@@ -42,22 +42,48 @@
 
     <!-- Conteúdo principal -->
     <main class="content">
-        <h1>Contato</h1>
+        <h1>Fale Conosco</h1>
         <form id="form-contato">
             <label for="nome">Nome</label>
-            <input type="text" id="nome" placeholder="Digite seu nome" required>
+            <input type="text" id="nome" placeholder="Seu nome" required>
 
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="Digite seu e-mail" required>
-
-            <label for="assunto">Assunto</label>
-            <input type="text" id="assunto" placeholder="Digite o assunto" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="seu@email.com" required>
 
             <label for="mensagem">Mensagem</label>
-            <textarea id="mensagem" placeholder="Escreva sua mensagem" required></textarea>
+            <textarea id="mensagem" placeholder="Escreva sua dúvida ou mensagem" required></textarea>
 
             <button type="submit">Enviar</button>
         </form>
+
+        <h2>Dúvidas Frequentes</h2>
+        <div class="faq">
+            <details>
+                <summary>Como faço para cadastrar um item perdido?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Para cadastrar um item perdido, acesse a seção "Cadastrar Item" no menu lateral, preencha o formulário com as informações do item, como descrição, local onde foi perdido e foto, se disponível. Em seguida, clique em "Enviar" para registrar.</p>
+            </details>
+            <details>
+                <summary>Como posso anunciar um item que encontrei?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Se você encontrou um item, vá para "Cadastrar Item" e selecione a opção de item encontrado. Forneça detalhes sobre o item e o local onde foi encontrado para que o dono possa identificá-lo.</p>
+            </details>
+            <details>
+                <summary>O que devo fazer se meu item foi encontrado?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Se você vir seu item na lista de "Itens Perdidos", entre em contato com o anunciante através das informações fornecidas no anúncio para combinar a devolução.</p>
+            </details>
+            <details>
+                <summary>O site tem alguma taxa para anunciar?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Não, o Startech é gratuito para todos os usuários. Não cobramos taxas para cadastrar ou anunciar itens.</p>
+            </details>
+            <details>
+                <summary>Posso confiar nos anúncios do site?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Nós incentivamos os usuários a verificarem as informações e encontrarem em locais públicos. Embora façamos o possível para manter a plataforma segura, a responsabilidade final é dos usuários.</p>
+            </details>
+            <details>
+                <summary>O que acontece se ninguém reclamar o item?<i class="fa-solid fa-chevron-down"></i></summary>
+                <p>Se ninguém reclamar o item após um período razoável (ex: 30 dias), você pode decidir doá-lo ou descartá-lo conforme as leis locais.</p>
+            </details>
+        </div>
+        <p class="no-found">Não encontrou aqui?<br>Envie no nosso e-mail.</p>
     </main>
 
     <script src="js/contato.js"></script>

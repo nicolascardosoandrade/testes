@@ -1,3 +1,15 @@
+// Função para alternar a visibilidade das seções
+function showSection(evt, sectionId) {
+    // Remove a classe 'active' de todos os botões e seções
+    document.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-section').forEach(section => section.classList.remove('active'));
+
+    // Adiciona a classe 'active' ao botão clicado e à seção correspondente
+    evt.currentTarget.classList.add('active');
+    document.getElementById(sectionId).classList.add('active');
+}
+
+// Lógica do formulário
 document.getElementById("form-configuracoes").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -18,11 +30,11 @@ document.getElementById("form-configuracoes").addEventListener("submit", functio
 
     alert(`Configurações salvas com sucesso! Nome: ${nome}, E-mail: ${email}${senha ? ", Senha atualizada" : ""}`);
     this.reset();
-    document.getElementById("nome").value = "Usuário 01"; // Restaurar valores padrão
+    document.getElementById("nome").value = "Usuário 01";
     document.getElementById("email").value = "usuario01@exemplo.com";
 });
 
-// Lógica para recolher e expandir a sidebar
+// Sidebar toggle
 document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const sidebar = document.querySelector('.sidebar');
@@ -32,4 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.toggle('collapsed');
         content.classList.toggle('expanded');
     });
+
+    // Define a seção "Geral" como ativa por padrão
+    document.getElementById('sec-geral').classList.add('active');
 });

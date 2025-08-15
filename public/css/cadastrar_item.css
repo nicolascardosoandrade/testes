@@ -1,176 +1,211 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif; /* Substituted Roboto with system fonts */
+    }
+
+    /* Barra superior */
+    .topbar {
+        height: 60px;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 15px; /* Espaçamento entre os elementos */
+    }
+
+    .topbar .menu-toggle {
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo img {
+        height: 35px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+        font-weight: bold;
+        color: #007BFF;
+    }
+
+    .user-info {
+        border: 1px solid #007BFF;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #007BFF;
+        margin-left: auto; /* Empurra o user-info para a direita */
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 220px;
+        background: #fff;
+        border-right: 1px solid #ddd;
+        padding-top: 20px;
+        height: calc(100vh - 60px);
+        position: fixed;
+        top: 60px;
+        left: 0;
+        transition: transform 0.3s ease; /* Animação suave para recolher/expandir */
+    }
+
+    .sidebar.collapsed {
+        transform: translateX(-100%); /* Move a sidebar para fora da tela à esquerda */
+    }
+
+    .sidebar nav ul {
+        list-style: none;
+    }
+
+    .sidebar nav ul li {
+        margin: 5px 0;
+    }
+
+    .sidebar nav ul li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        color: #000;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    .sidebar nav ul li a:hover {
+        background: #f0f0f0;
+    }
+
+    .sidebar nav ul li.active a {
+        background: #e6f0ff;
+        color: #007BFF;
+    }
+
+    .settings {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        color: #555;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .settings a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        color: #555;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .settings.active a {
+        color: #007BFF;
+    }
+
+    /* Conteúdo principal */
+  .content {
+    margin-left: 240px; /* mantém espaço da sidebar */
+    min-height: calc(100vh - 60px);
+    padding: 30px;
+    transition: margin-left 0.3s ease;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+    .content.expanded {
+        margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
+    }
+
+    /* Formulário (from index.html style.css) */
+  .form-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 100%;        /* ocupa todo o espaço disponível */
+    max-width: none;    /* remove limite de largura */
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
-/* Barra superior */
-.topbar {
-    height: 60px;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    gap: 15px; /* Espaçamento entre os elementos */
-}
+    h1 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
 
-.topbar .menu-toggle {
-    cursor: pointer;
-    font-size: 18px;
-}
+    h2 {
+        font-size: 16px;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 
-.logo img {
-    height: 35px;
-}
-
-.logo-text {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007BFF;
-}
-
-.user-info {
-    border: 1px solid #007BFF;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #007BFF;
-    margin-left: auto; /* Empurra o user-info para a direita */
-}
-
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    background: #fff;
-    border-right: 1px solid #ddd;
-    padding-top: 20px;
-    height: calc(100vh - 60px);
-    position: fixed;
-    top: 60px;
-    left: 0;
-    transition: transform 0.3s ease; /* Animação suave para recolher/expandir */
-}
-
-.sidebar.collapsed {
-    transform: translateX(-100%); /* Move a sidebar para fora da tela à esquerda */
-}
-
-.sidebar nav ul {
-    list-style: none;
-}
-
-.sidebar nav ul li {
-    margin: 5px 0;
-}
-
-.sidebar nav ul li a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    color: #000;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.2s;
-}
-
-.sidebar nav ul li a:hover {
-    background: #f0f0f0;
-}
-
-.sidebar nav ul li.active a {
-    background: #e6f0ff;
-    color: #007BFF;
-}
-
-.settings {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    color: #555;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.settings a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    color: #555;
-    text-decoration: none;
-    transition: background 0.2s;
-}
-
-.settings.active a {
-    color: #007BFF;
-}
-
-/* Conteúdo principal */
-.content {
-    margin-left: 240px; /* Espaço para a sidebar expandida */
-    min-height: calc(100vh - 60px); /* Altura total menos a altura da barra superior */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    padding: 20px;
-    transition: margin-left 0.3s ease; /* Animação suave para o ajuste do conteúdo */
-}
-
-.content.expanded {
-    margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
-}
-
-/* Formulário */
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-
-form label {
-    font-weight: bold;
-    margin-top: 10px;
+    label {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 5px;   /* espaço entre o label e o campo */
+    margin-top: 15px;     /* espaço acima do label */
     display: block;
 }
 
-form input, form textarea, form button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-}
+    input, select, textarea {
+        padding: 12px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+    }
 
-form textarea {
+   textarea {
     resize: none;
-    height: 100px;
+    height: 120px;
+    margin-bottom: 15px;  /* espaço abaixo da textarea */
 }
 
-form button {
-    margin-top: 15px;
-    background: #007BFF;
-    color: #fff;
+    .btn-submit {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: 500;
+    margin-top: 10px;
+    width: auto; /* largura conforme o conteúdo */
+    min-width: 150px; /* largura mínima opcional */
 }
 
-form button:hover {
-    background: #0056b3;
-}
+    .btn-submit:hover {
+        background: #0069d9;
+    }
+
+    /* Linha de Local e Categoria */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    /* Linha de Descrição e Data de Encontro com mesmas larguras */
+    .form-row.descricao-data {
+        grid-template-columns: 1fr 1fr; /* mesma largura para os dois */
+    }

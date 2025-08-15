@@ -44,8 +44,79 @@
     <main class="content">
         <section class="main-section">
             <h1>Meus Registros</h1>
-            <div class="records-container" id="recordsList">
-                <!-- Registros do usuário serão carregados aqui -->
+
+            <!-- Filtro -->
+            <div class="filter-container">
+                <h2>Filtrar por um item cadastrado</h2>
+                <!-- NOME DO PRODUTO field at the top, full width -->
+                <div class="filter-item full-width top-filter">
+                    <label for="nomeProduto">NOME DO PRODUTO</label>
+                    <input type="text" id="nomeProduto" placeholder="Produto">
+                </div>
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <label for="local">LOCAL</label>
+                        <select id="local">
+                            <option>Selecione um local</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="categoria">CATEGORIA</label>
+                        <select id="categoria">
+                            <option>Selecione uma categoria</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="data">DATA DE ENCONTRO</label>
+                        <input type="date" id="data">
+                    </div>
+                    <div class="filter-item">
+                        <label for="status">STATUS</label>
+                        <select id="status">
+                            <option>Selecione o status</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de registros -->
+            <div class="table-container">
+                <p><strong>121 registros encontrados</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOME</th>
+                            <th>LOCAL</th>
+                            <th>CATEGORIA</th>
+                            <th>DATA DE ENCONTRO</th>
+                            <th>STATUS</th>
+                            <th>DETALHES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td>GARRAFA AZUL</td>
+                            <td>SALA DE AULA</td>
+                            <td>UTENSÍLIOS</td>
+                            <td>23/02/2024</td>
+                            <td>PERDIDO</td>
+                            <td><a href="#">VER MAIS</a></td>
+                        </tr>
+                        <!-- Mais registros aqui -->
+                    </tbody>
+                </table>
+
+                <!-- Paginação -->
+                <div class="pagination">
+                    <button>&lt;</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>&gt;</button>
+                </div>
             </div>
         </section>
     </main>

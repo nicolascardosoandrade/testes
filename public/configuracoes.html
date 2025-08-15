@@ -43,21 +43,42 @@
     <!-- Conteúdo principal -->
     <main class="content">
         <h1>Configurações</h1>
-        <form id="form-configuracoes">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" placeholder="Digite seu nome" value="Usuário 01" required>
+        <div class="config-box">
 
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="Digite seu e-mail" value="usuario01@exemplo.com" required>
+            <!-- Abas -->
+            <div class="tabs">
+                <button class="tab-link active" onclick="showSection(event, 'sec-geral')">Geral</button>
+                <button class="tab-link" onclick="showSection(event, 'sec-info-pessoais')">Informações Pessoais</button>
+            </div>
 
-            <label for="senha">Nova Senha</label>
-            <input type="password" id="senha" placeholder="Digite uma nova senha">
+            <!-- Seção Geral -->
+            <section id="sec-geral" class="tab-section active">
+                <h2>Geral</h2>
+                <p>Aqui vão as configurações gerais do sistema.</p>
+                <!-- Adicione mais opções gerais aqui, se necessário -->
+            </section>
 
-            <label for="confirmar-senha">Confirmar Nova Senha</label>
-            <input type="password" id="confirmar-senha" placeholder="Confirme a nova senha">
+            <!-- Seção Informações Pessoais -->
+            <section id="sec-info-pessoais" class="tab-section">
+                <h2>Informações Pessoais</h2>
+                <form id="form-configuracoes">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" value="Usuário 01" required>
+                    
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" value="usuario01@exemplo.com" required>
+                    
+                    <label for="senha">Nova Senha:</label>
+                    <input type="password" id="senha" name="senha">
+                    
+                    <label for="confirmar-senha">Confirmar Nova Senha:</label>
+                    <input type="password" id="confirmar-senha" name="confirmar-senha">
+                    
+                    <button type="submit">Salvar Informações</button>
+                </form>
+            </section>
 
-            <button type="submit">Salvar Alterações</button>
-        </form>
+        </div>
     </main>
 
     <script src="js/configuracoes.js"></script>

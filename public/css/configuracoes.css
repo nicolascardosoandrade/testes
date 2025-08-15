@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     padding: 0 20px;
-    gap: 15px; /* Espaçamento entre os elementos */
+    gap: 15px;
 }
 
 .topbar .menu-toggle {
@@ -22,20 +22,8 @@
     font-size: 18px;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 .logo img {
     height: 35px;
-}
-
-.logo-text {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007BFF;
 }
 
 .user-info {
@@ -47,7 +35,7 @@
     align-items: center;
     gap: 5px;
     color: #007BFF;
-    margin-left: auto; /* Empurra o user-info para a direita */
+    margin-left: auto;
 }
 
 /* Sidebar */
@@ -60,11 +48,11 @@
     position: fixed;
     top: 60px;
     left: 0;
-    transition: transform 0.3s ease; /* Animação suave para recolher/expandir */
+    transition: transform 0.3s ease;
 }
 
 .sidebar.collapsed {
-    transform: translateX(-100%); /* Move a sidebar para fora da tela à esquerda */
+    transform: translateX(-100%);
 }
 
 .sidebar nav ul {
@@ -90,28 +78,20 @@
     background: #f0f0f0;
 }
 
-.sidebar nav ul li.active a {
-    background: #e6f0ff;
-    color: #007BFF;
-}
-
 .settings {
     position: absolute;
     bottom: 15px;
     left: 15px;
-    color: #555;
     font-size: 14px;
-    cursor: pointer;
 }
 
 .settings a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 0;
     color: #555;
     text-decoration: none;
-    transition: background 0.2s;
+    padding: 10px 0;
 }
 
 .settings.active a {
@@ -120,48 +100,81 @@
 
 /* Conteúdo principal */
 .content {
-    margin-left: 240px; /* Espaço para a sidebar expandida */
-    min-height: calc(100vh - 60px); /* Altura total menos a altura da barra superior */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
+    margin-left: 240px;
+    min-height: calc(100vh - 60px);
     padding: 20px;
-    transition: margin-left 0.3s ease; /* Animação suave para o ajuste do conteúdo */
+    transition: margin-left 0.3s ease;
 }
 
 .content.expanded {
-    margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
+    margin-left: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Caixa de configuração */
+.config-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Abas */
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.tab-link.active {
+    border-bottom: 2px solid #000;
+    color: #000;
+}
+
+/* Seções */
+.tab-section {
+    padding: 15px 0;
+    display: none; /* Oculta todas as seções por padrão */
+}
+
+.tab-section.active {
+    display: block; /* Mostra apenas a seção ativa */
+}
+
+.tab-section h2 {
+    margin-bottom: 10px;
 }
 
 /* Formulário */
-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    width: 100%;
-}
-
 form label {
     font-weight: bold;
     margin-top: 10px;
     display: block;
 }
 
-form input, form textarea {
+form input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
-}
-
-form textarea {
-    resize: none;
-    height: 100px;
 }
 
 form button {
