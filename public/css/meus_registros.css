@@ -42,6 +42,42 @@
     gap: 5px;
     color: #007BFF;
     margin-left: auto;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-info .user-name {
+    cursor: pointer;
+}
+
+.user-info .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.user-info .dropdown-menu.active {
+    display: block;
+}
+
+.user-info .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.user-info .dropdown-menu a:hover {
+    background: #f0f0f0;
 }
 
 /* Sidebar */

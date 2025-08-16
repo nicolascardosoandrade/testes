@@ -19,7 +19,12 @@
         </div>
         <div class="user-info">
             <i class="fa-regular fa-user"></i>
-            Usuário 01
+            <span class="user-name">Usuário 01</span>
+            <div class="dropdown-menu">
+                <a href="cadastro_academico.html">Cadastro Acadêmico</a>
+                <a href="alterar_senha.html">Alterar Senha</a>
+                <a href="#" class="logout">Sair</a>
+            </div>
         </div>
     </header>
 
@@ -45,83 +50,109 @@
         <!-- Lista de itens -->
         <section class="items-grid">
             <h1>Itens Perdidos</h1>
-            <div class="search-bar">
+            <div class="search-bar-top">
                 <input type="text" placeholder="Busque por item ou local...">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="item-card">
+            <div class="filter-bar">
+                <select>
+                    <option value="">Selecione uma categoria</option>
+                </select>
+                <select>
+                    <option value="">Selecione um local</option>
+                </select>
+                <select>
+                    <option value="">Selecione uma data</option>
+                </select>
+            </div>
+            <a href="#" id="whatsappContact" class="whatsapp-link">Não lembra aonde e quando perdeu? Entre em contato aqui</a>
+            <div class="item-card" data-item="Garrafa azul" data-local="Refeitório" data-data="27/07/2025" data-categoria="Utensílios">
                 <i class="fa-solid fa-glass-water"></i>
                 <h3 class="blue">Garrafa azul</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Casaco preto" data-local="Sala 12" data-data="27/07/2025" data-categoria="Roupas">
                 <i class="fa-solid fa-shirt"></i>
                 <h3 class="blue">Casaco preto</h3>
                 <p>Deixado na sala 12</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Óculos" data-local="Laboratório de Informática" data-data="27/07/2025" data-categoria="Acessórios">
                 <i class="fa-solid fa-glasses"></i>
                 <h3 class="blue">Óculos</h3>
                 <p>Achado no laboratório de informática</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Estojo rosa" data-local="Sala 07" data-data="26/07/2025" data-categoria="Escolar">
                 <i class="fa-solid fa-pen"></i>
                 <h3 class="pink">Estojo rosa</h3>
                 <p>Encontrado na sala 07</p>
                 <span>26/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Lancheira" data-local="Refeitório" data-data="27/07/2025" data-categoria="Utensílios">
                 <i class="fa-solid fa-utensils"></i>
                 <h3 class="blue">Lancheira</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Fone de ouvido" data-local="Refeitório" data-data="27/07/2025" data-categoria="Acessórios">
                 <i class="fa-solid fa-headphones"></i>
                 <h3 class="blue">Fone de ouvido</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Garrafa azul" data-local="Refeitório" data-data="27/07/2025" data-categoria="Utensílios">
                 <i class="fa-solid fa-glass-water"></i>
                 <h3 class="blue">Garrafa azul</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Casaco preto" data-local="Sala 12" data-data="27/07/2025" data-categoria="Roupas">
                 <i class="fa-solid fa-shirt"></i>
                 <h3 class="blue">Casaco preto</h3>
                 <p>Deixado na sala 12</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Óculos" data-local="Laboratório de Informática" data-data="27/07/2025" data-categoria="Acessórios">
                 <i class="fa-solid fa-glasses"></i>
                 <h3 class="blue">Óculos</h3>
                 <p>Achado no laboratório de informática</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Estojo rosa" data-local="Sala 07" data-data="26/07/2025" data-categoria="Escolar">
                 <i class="fa-solid fa-pen"></i>
                 <h3 class="pink">Estojo rosa</h3>
                 <p>Encontrado na sala 07</p>
                 <span>26/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Lancheira" data-local="Refeitório" data-data="27/07/2025" data-categoria="Utensílios">
                 <i class="fa-solid fa-utensils"></i>
                 <h3 class="blue">Lancheira</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
-            <div class="item-card">
+            <div class="item-card" data-item="Fone de ouvido" data-local="Refeitório" data-data="27/07/2025" data-categoria="Acessórios">
                 <i class="fa-solid fa-headphones"></i>
                 <h3 class="blue">Fone de ouvido</h3>
                 <p>Encontrado próximo ao refeitório</p>
                 <span>27/07/2025</span>
             </div>
         </section>
+        <!-- Popup -->
+        <div id="itemPopup" class="popup">
+            <div class="popup-content">
+                <button class="close-btn">Voltar</button>
+                <h2 id="popupItem"></h2>
+                <p><strong>Local:</strong> <span id="popupLocal"></span></p>
+                <p><strong>Data:</strong> <span id="popupData"></span></p>
+                <p><strong>Categoria:</strong> <span id="popupCategoria"></span></p>
+                <p><strong>Esse item é seu? Preencha:</strong></p>
+                <textarea id="popupDescription" placeholder="Descreva o item com detalhes:"></textarea>
+                <p><strong>Anexe uma imagem do item:</strong> <input type="file" id="popupImage"></p>
+                <button class="submit-btn">Enviar</button>
+            </div>
+        </div>
     </main>
 
     <script src="js/itens_perdidos.js"></script>

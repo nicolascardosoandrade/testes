@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     padding: 0 20px;
-    gap: 15px; /* Espaçamento entre os elementos */
+    gap: 15px;
 }
 
 .topbar .menu-toggle {
@@ -32,12 +32,6 @@
     height: 35px;
 }
 
-.logo-text {
-    font-size: 18px;
-    font-weight: bold;
-    color: #007BFF;
-}
-
 .user-info {
     border: 1px solid #007BFF;
     padding: 5px 12px;
@@ -47,7 +41,43 @@
     align-items: center;
     gap: 5px;
     color: #007BFF;
-    margin-left: auto; /* Empurra o user-info para a direita */
+    margin-left: auto;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-info .user-name {
+    cursor: pointer;
+}
+
+.user-info .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.user-info .dropdown-menu.active {
+    display: block;
+}
+
+.user-info .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.user-info .dropdown-menu a:hover {
+    background: #f0f0f0;
 }
 
 /* Sidebar */
@@ -60,11 +90,11 @@
     position: fixed;
     top: 60px;
     left: 0;
-    transition: transform 0.3s ease; /* Animação suave para recolher/expandir */
+    transition: transform 0.3s ease;
 }
 
 .sidebar.collapsed {
-    transform: translateX(-100%); /* Move a sidebar para fora da tela à esquerda */
+    transform: translateX(-100%);
 }
 
 .sidebar nav ul {
@@ -120,14 +150,14 @@
 
 /* Conteúdo principal */
 .content {
-    margin-left: 240px; /* Espaço para a sidebar expandida */
-    min-height: calc(100vh - 60px); /* Altura total menos a altura da barra superior */
+    margin-left: 240px;
+    min-height: calc(100vh - 60px);
     padding: 20px;
-    transition: margin-left 0.3s ease; /* Animação suave para o ajuste do conteúdo */
+    transition: margin-left 0.3s ease;
 }
 
 .content.expanded {
-    margin-left: 0; /* Remove a margem quando a sidebar está recolhida */
+    margin-left: 0;
 }
 
 /* Grid de itens */
@@ -138,44 +168,81 @@
 }
 
 .items-grid h1 {
-    grid-column: 1 / -1; /* Ocupa toda a largura do grid */
+    grid-column: 1 / -1;
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
 }
 
-.items-grid .search-bar {
-    grid-column: 1 / -1; /* Ocupa toda a largura do grid */
+.items-grid .search-bar-top {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    background: white;
+    background: #f9f9f9;
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    max-width: 400px;
+    max-width: 600px;
     margin-bottom: 15px;
 }
 
-.search-bar input {
+.search-bar-top input {
     border: none;
     outline: none;
     flex: 1;
     font-size: 14px;
 }
 
-.search-bar i {
+.search-bar-top i {
+    color: #555;
+    margin-right: 10px;
+}
+
+.items-grid .filter-bar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.filter-bar select {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 8px 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     color: #555;
 }
 
+.whatsapp-link {
+    grid-column: 1 / -1;
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #25D366; /* Cor verde do WhatsApp */
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.whatsapp-link:hover {
+    text-decoration: underline;
+}
+
 .item-card {
-    background: white;
+    background: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    text-align: center;
+    cursor: pointer;
 }
 
 .item-card i {
-    font-size: 20px;
+    font-size: 24px;
     color: #333;
     margin-bottom: 8px;
 }
@@ -202,4 +269,62 @@
 
 .pink {
     color: #d63384;
+}
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #333;
+}
+
+.submit-btn {
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#popupDescription {
+    width: 100%;
+    height: 80px;
+    margin: 10px 0;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#popupImage {
+    margin: 10px 0;
 }
