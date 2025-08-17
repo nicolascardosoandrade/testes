@@ -74,4 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Define a seção "Geral" como ativa por padrão
     document.getElementById('sec-geral').classList.add('active');
+
+    // Lógica do seletor de temas
+    const themeInputs = document.querySelectorAll('input[name="theme"]');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+
+    // Define o input de rádio correspondente ao tema salvo
+    themeInputs.forEach(input => {
+        if (input.value === savedTheme) {
+            input.checked = true;
+        }
+        input.addEventListener('change', () => {
+            const selectedTheme = input.value;
+            document.body.classList.toggle('dark-theme', selectedTheme === 'dark');
+            localStorage.setItem('theme', selectedTheme);
+        });
+    });
 });

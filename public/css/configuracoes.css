@@ -186,11 +186,11 @@ h1 {
 /* Seções */
 .tab-section {
     padding: 15px 0;
-    display: none; /* Oculta todas as seções por padrão */
+    display: none;
 }
 
 .tab-section.active {
-    display: block; /* Mostra apenas a seção ativa */
+    display: block;
 }
 
 .tab-section h2 {
@@ -219,12 +219,180 @@ form button {
     color: #fff;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 13px;
+    max-width: 200px;
     width: 100%;
 }
 
 form button:hover {
     background: #0056b3;
+}
+
+/* Estilo do seletor de temas */
+.theme-selector {
+    margin-top: 20px;
+}
+
+.theme-selector label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+.theme-options {
+    display: flex;
+    gap: 20px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.theme-option:hover {
+    background: #e6f0ff;
+    border-color: #007BFF;
+}
+
+.theme-option input[type="radio"] {
+    display: none;
+}
+
+.theme-option input[type="radio"]:checked + .theme-icon {
+    color: #007BFF;
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    font-size: 20px;
+    color: #555;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.theme-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.theme-option input[type="radio"]:focus + .theme-icon {
+    outline: 2px solid #007BFF;
+    outline-offset: 2px;
+}
+
+/* Tema escuro */
+body.dark-theme {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .topbar {
+    background: #2c2c2c;
+    border-bottom: 1px solid #444;
+}
+
+body.dark-theme .sidebar {
+    background: #2c2c2c;
+    border-right: 1px solid #444;
+}
+
+body.dark-theme .sidebar nav ul li a {
+    color: #e0e0e0;
+}
+
+body.dark-theme .sidebar nav ul li a:hover {
+    background: #3a3a3a;
+}
+
+body.dark-theme .settings a {
+    color: #aaa;
+}
+
+body.dark-theme .settings.active a {
+    color: #4da8ff;
+}
+
+body.dark-theme .config-box {
+    background: #2c2c2c;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+body.dark-theme .tabs {
+    border-bottom: 1px solid #444;
+}
+
+body.dark-theme .tab-link {
+    color: #aaa;
+}
+
+body.dark-theme .tab-link.active {
+    border-bottom: 2px solid #e0e0e0;
+    color: #e0e0e0;
+}
+
+body.dark-theme form input {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+body.dark-theme form button {
+    background: #4da8ff;
+}
+
+body.dark-theme form button:hover {
+    background: #3b86cc;
+}
+
+body.dark-theme .user-info .dropdown-menu {
+    background: #2c2c2c;
+    border: 1px solid #444;
+}
+
+body.dark-theme .user-info .dropdown-menu a {
+    color: #e0e0e0;
+}
+
+body.dark-theme .user-info .dropdown-menu a:hover {
+    background: #3a3a3a;
+}
+
+body.dark-theme .theme-selector label {
+    color: #e0e0e0;
+}
+
+body.dark-theme .theme-option {
+    background: #3a3a3a;
+    border: 1px solid #555;
+}
+
+body.dark-theme .theme-option:hover {
+    background: #4a4a4a;
+    border-color: #4da8ff;
+}
+
+body.dark-theme .theme-option input[type="radio"]:checked + .theme-icon {
+    color: #4da8ff;
+}
+
+body.dark-theme .theme-icon {
+    color: #aaa;
+}
+
+body.dark-theme .theme-label {
+    color: #e0e0e0;
+}
+
+body.dark-theme .theme-option input[type="radio"]:focus + .theme-icon {
+    outline: 2px solid #4da8ff;
 }
