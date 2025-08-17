@@ -22,8 +22,14 @@
     font-size: 18px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .logo img {
-    height: 35px;
+    height: 100px;
 }
 
 .user-info {
