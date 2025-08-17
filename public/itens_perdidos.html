@@ -57,13 +57,42 @@
             <div class="filter-bar">
                 <select>
                     <option value="">Selecione uma categoria</option>
+                    <option value="todos">Todos</option>
+                    <option value="Documentos/Identificações">Documentos / Identificações</option>
+                    <option value="Eletrônicos">Eletrônicos</option>
+                    <option value="Objetos Pessoais">Objetos Pessoais</option>
+                    <option value="Roupas/Acessórios">Roupas / Acessórios</option>
+                    <option value="Itens de Transporte">Itens de Transporte</option>
+                    <option value="Itens Esportivos">Itens Esportivos</option>
+                    <option value="Materiais de Estudo/Escritório">Materiais de Estudo / Escritório</option>
+                    <option value="Itens de Saúde">Itens de Saúde</option>
+                    <option value="Objetos Diversos">Objetos Diversos</option>
+                    <option value="Outros">Outros</option>
                 </select>
                 <select>
                     <option value="">Selecione um local</option>
+                    <option value="todos">Todos</option>
+                    <option value="Salas de Aula">Salas de Aula</option>
+                    <option value="Laboratórios Técnicos">Laboratórios Técnicos</option>
+                    <option value="Oficinas Práticas/Áreas de Produção">Oficinas Práticas / Áreas de Produção</option>
+                    <option value="Biblioteca">Biblioteca</option>
+                    <option value="Refeitório/Cantina">Refeitório / Cantina</option>
+                    <option value="Banheiros">Banheiros</option>
+                    <option value="Área de Convivência/Pátio">Área de Convivência / Pátio</option>
+                    <option value="Auditório/Salas de Palestras">Auditório / Salas de Palestras</option>
+                    <option value="Sala dos Professores/Coordenação">Sala dos Professores / Coordenação</option>
+                    <option value="Estacionamento/Bicicletário">Estacionamento / Bicicletário</option>
+                    <option value="Recepção/Entrada Principal">Recepção / Entrada Principal</option>
+                    <option value="Corredores Internos">Corredores Internos</option>
+                    <option value="Escadas/Halls de Acesso">Escadas / Halls de Acesso</option>
+                    <option value="Secretaria Acadêmica">Secretaria Acadêmica</option>
+                    <option value="Área de Atendimento ao Aluno">Área de Atendimento ao Aluno</option>
+                    <option value="Laboratórios de Informática/Salas com Computadores">Laboratórios de Informática / Salas com Computadores</option>
+                    <option value="Área externa/Jardim/Quintal">Área externa / Jardim / Quintal</option>
+                    <option value="Sala de Equipamentos/Almoxarifado">Sala de Equipamentos / Almoxarifado</option>
+                    <option value="Copas internas (funcionários ou docentes)">Copas internas (de funcionários ou docentes)</option>
                 </select>
-                <select>
-                    <option value="">Selecione uma data</option>
-                </select>
+                <input type="date">
             </div>
             <a href="#" id="whatsappContact" class="whatsapp-link">Não lembra aonde e quando perdeu? Entre em contato aqui</a>
             <div class="item-card" data-item="Garrafa azul" data-local="Refeitório" data-data="27/07/2025" data-categoria="Utensílios">
@@ -139,7 +168,7 @@
                 <span>27/07/2025</span>
             </div>
         </section>
-        <!-- Popup -->
+        <!-- Popup existente -->
         <div id="itemPopup" class="popup">
             <div class="popup-content">
                 <button class="close-btn">Voltar</button>
@@ -150,6 +179,17 @@
                 <p><strong>Esse item é seu? Preencha:</strong></p>
                 <textarea id="popupDescription" placeholder="Descreva o item com detalhes:"></textarea>
                 <p><strong>Anexe uma imagem do item:</strong> <input type="file" id="popupImage"></p>
+                <button class="submit-btn">Enviar</button>
+            </div>
+        </div>
+        <!-- Novo popup para item desconhecido -->
+        <div id="unknownItemPopup" class="popup">
+            <div class="popup-content">
+                <button class="close-btn">Voltar</button>
+                <h2>Item Desconhecido</h2>
+                <p><strong>Não sabe qual item perdeu? Descreva abaixo:</strong></p>
+                <textarea id="unknownDescription" placeholder="Descreva o item com detalhes:"></textarea>
+                <p><strong>Anexe uma imagem do item (opcional):</strong> <input type="file" id="unknownImage"></p>
                 <button class="submit-btn">Enviar</button>
             </div>
         </div>

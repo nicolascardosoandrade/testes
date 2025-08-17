@@ -7,17 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Busca de itens
+    // Busca de itens e filtragem por data
     const searchInput = document.querySelector('.search-bar-top input');
+    const dateInput = document.querySelector('.filter-bar input[type="date"]');
     const itemCards = document.querySelectorAll('.item-card');
 
-    searchInput.addEventListener('input', () => {
+    function filterItems() {
         const searchValue = searchInput.value.toLowerCase();
+        const dateValue = dateInput.value; // Formato YYYY-MM-DD
+        const formattedDate = dateValue ? dateValue.split('-').reverse().join('/') : ''; // Converte para DD/MM/YYYY
+
         itemCards.forEach(card => {
             const text = card.innerText.toLowerCase();
-            card.style.display = text.includes(searchValue) ? '' : 'none';
+            const cardDate = card.getAttribute('data-data'); // Formato DD/MM/YYYY
+
+            const matchesSearch = text.includes(searchValue);
+            const matchesDate = !formattedDate || cardDate === formattedDate;
+
+            card.style.display = matchesSearch && matchesDate ? '' : 'none';
         });
-    });
+    }
+
+    searchInput.addEventListener('input', filterItems);
+    dateInput.addEventListener('input', filterItems);
 
     // Lógica para recolher e expandir a sidebar
     const menuToggle = document.querySelector('.menu-toggle');
@@ -53,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Popup functionality
-    const popup = document.getElementById('itemPopup');
-    const closeBtn = document.querySelector('.close-btn');
-    const submitBtn = document.querySelector('.submit-btn');
+    const itemPopup = document.getElementById('itemPopup');
+    const closeItemBtn = document.querySelector('#itemPopup .close-btn');
+    const itemSubmitBtn = document.querySelector('#itemPopup .submit-btn');
     const popupItem = document.getElementById('popupItem');
     const popupLocal = document.getElementById('popupLocal');
     const popupData = document.getElementById('popupData');
@@ -73,28 +85,40 @@ document.addEventListener("DOMContentLoaded", () => {
             popupData.textContent = data;
             popupCategoria.textContent = categoria;
 
-            popup.style.display = 'flex';
+            itemPopup.style.display = 'flex';
         });
     });
 
-    closeBtn.addEventListener('click', () => {
-        popup.style.display = 'none';
+    closeItemBtn.addEventListener('click', () => {
+        itemPopup.style.display = 'none';
     });
 
-    submitBtn.addEventListener('click', () => {
+    itemSubmitBtn.addEventListener('click', () => {
         const description = document.getElementById('popupDescription').value;
         const image = document.getElementById('popupImage').files[0];
         console.log('Descrição:', description, 'Imagem:', image);
-        popup.style.display = 'none';
+        itemPopup.style.display = 'none';
     });
 
-    // WhatsApp contact logic
+    // Popup para item desconhecido
+    const unknownPopup = document.getElementById('unknownItemPopup');
+    const closeUnknownBtn = document.querySelector('#unknownItemPopup .close-btn');
+    const unknownSubmitBtn = document.querySelector('#unknownItemPopup .submit-btn');
     const whatsappLink = document.getElementById('whatsappContact');
+
     whatsappLink.addEventListener('click', (e) => {
         e.preventDefault();
-        const phoneNumber = '5531992651046'; // Replace with actual WhatsApp number
-        const message = 'Olá! Não lembro aonde e quando perdi meu item. Podem me ajudar?';
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        unknownPopup.style.display = 'flex';
+    });
+
+    closeUnknownBtn.addEventListener('click', () => {
+        unknownPopup.style.display = 'none';
+    });
+
+    unknownSubmitBtn.addEventListener('click', () => {
+        const description = document.getElementById('unknownDescription').value;
+        const image = document.getElementById('unknownImage').files[0];
+        console.log('Descrição do item desconhecido:', description, 'Imagem:', image);
+        unknownPopup.style.display = 'none';
     });
 });
